@@ -1,4 +1,4 @@
-export function formatMoney(amountCents) {
+export function formatMoney(amountCents: number) {
     const isNegative = amountCents < 0;
     const absoluteAmount = Math.abs(amountCents);
 
