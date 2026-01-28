@@ -15,13 +15,13 @@ type HeaderProps = {
     }[];
 };
 
-export function Header({ cart }: HeaderProps) {
+export function Header({ cart = [] }: HeaderProps) {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const searchText = searchParams.get('search');
     const [search, setSearch] = useState(searchText || '');
 
-    const updateSearchInput = (event) => {
+    const updateSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     };
 
@@ -58,6 +58,7 @@ export function Header({ cart }: HeaderProps) {
                 </div>
 
                 <div className="right-section">
+
                     <NavLink className="orders-link header-link" to="/orders">
 
                         <span className="orders-text">Orders</span>
