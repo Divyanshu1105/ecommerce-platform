@@ -1,3 +1,7 @@
+# Your Django project specific
+ecommerce-backend/*/__pycache__/
+ecommerce-backend/*/migrations/__pycache__/
+
 node_modules
 database.sqlite
 *.zip
