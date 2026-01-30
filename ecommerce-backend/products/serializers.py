@@ -3,7 +3,6 @@ from .models import Product
 
 class ProductSerializer(serializers.ModelSerializer):
     # Format the data to match your frontend JSON exactly
-    id = serializers.CharField(source='id')
     priceCents = serializers.IntegerField(source='price_cents')
 
     rating = serializers.SerializerMethodField()
