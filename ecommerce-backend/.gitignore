@@ -1,6 +1,6 @@
 # Your Django project specific
-ecommerce-backend/*/__pycache__/
-ecommerce-backend/*/migrations/__pycache__/
+**/__pycache__/
+db.sqlite3
 
 node_modules
 database.sqlite
