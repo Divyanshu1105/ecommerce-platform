@@ -1,19 +1,20 @@
-# Ignore everything
-*
-
-# Allow the gitignore files themselves
-!.gitignore
-!**/ .gitignore
-
-# Allow the project folders
-!ecommerce-backend/
-!ecommerce-backend/**
-!ecommerce-project/
-!ecommerce-project/**
-
-# Standard ignores that apply to everything
-**/__pycache__/
+# Python
+__pycache__/
 *.py[cod]
+*.pyo
+
+# Virtual environments
 venv/
+.env/
+
+# Node
 node_modules/
+dist/
+
+# OS / Editor
 .DS_Store
+.vscode/
+.idea/
+
+# Django
+db.sqlite3
