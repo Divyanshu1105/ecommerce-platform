@@ -57,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ALLOW_ALL_ORIGINS = True #only for development
 # else:
 #     CORS_ALLOWED_ORIGINS = [] fill it later when domain name exists
 
