@@ -6,6 +6,7 @@ import { CheckoutPage } from './pages/checkout/CheckoutPage';
 import { OrdersPage } from './pages/orders/OrdersPage';
 import { TrackingPage } from './pages/TrackingPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import TestApiConnection from './components/TestApiconnection';
 import './App.css'
 
 // window.axios = axios;
@@ -34,6 +35,7 @@ function App() {
       <Route path="/checkout" element={<CheckoutPage cart={cart} loadCart={loadCart} />} />
       <Route path="/orders" element={<OrdersPage cart={cart} loadCart={loadCart} />} />
       <Route path="/tracking/:orderId/:productId" element={<TrackingPage cart={cart} />} />
+      <Route path="/test-api" element={<TestApiConnection />} />
       <Route path="*" element={<NotFoundPage cart={cart} />} />
     </Routes>
   )

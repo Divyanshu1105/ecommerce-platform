@@ -46,7 +46,7 @@ const TestApiConnection: React.FC = () => {
         return (
             <div style={styles.container}>
                 <h2>Testing Backend Connection...</h2>
-                <div style={styles.spinner}>⏳</div>
+                <div style={styles.spinner}>Loading</div>
                 <p>Attempting to connect to Django backend...</p>
             </div>
         );
@@ -83,7 +83,7 @@ const TestApiConnection: React.FC = () => {
 
             {connectionStatus === 'connected' && (
                 <div style={styles.successBox}>
-                    <h3>✅ Successfully connected to Django Backend!</h3>
+                    <h3>Successfully connected to Django Backend!</h3>
                     <p>Found {products.length} product(s) in the database.</p>
 
                     {products.length > 0 && (

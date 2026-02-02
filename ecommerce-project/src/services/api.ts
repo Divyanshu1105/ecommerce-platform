@@ -1,5 +1,4 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
-import type { ApiResponse } from '../types/product.types'; // type-only import
 
 const API_BASE_URL = 'http://localhost:8000/api';
 
@@ -64,28 +63,28 @@ class ApiService {
 
     //  FIXED: Unwraps ApiResponse<T>.data + generics
     public get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.get<ApiResponse<T>>(url, config)
-            .then((response) => response.data.data); // Your ApiResponse structure
+        return this.axiosInstance.get<T>(url, config)
+            .then((response) => response.data); // Change response.data.data to response.data
     }
 
     public post<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.post<ApiResponse<T>, AxiosResponse<ApiResponse<T>>, D>(url, data, config)
-            .then((response) => response.data.data);
+        return this.axiosInstance.post<T, AxiosResponse<T>, D>(url, data, config)
+            .then((response) => response.data);
     }
 
     public put<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.put<ApiResponse<T>, AxiosResponse<ApiResponse<T>>, D>(url, data, config)
-            .then((response) => response.data.data);
+        return this.axiosInstance.put<T, AxiosResponse<T>, D>(url, data, config)
+            .then((response) => response.data);
     }
 
     public patch<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.patch<ApiResponse<T>, AxiosResponse<ApiResponse<T>>, D>(url, data, config)
-            .then((response) => response.data.data);
+        return this.axiosInstance.patch<T, AxiosResponse<T>, D>(url, data, config)
+            .then((response) => response.data);
     }
 
     public delete<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.delete<ApiResponse<T>>(url, config)
-            .then((response) => response.data.data);
+        return this.axiosInstance.delete<T>(url, config)
+            .then((response) => response.data);
     }
 
     public get instance(): AxiosInstance {
