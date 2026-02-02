@@ -34,3 +34,12 @@ export interface ApiResponse<T> {
     status: number;
     statusText: string;
 }
+
+export interface BackendProductData {
+    image: string;
+    name: string;
+    price_cents: number;
+    keywords: string[];
+    rating_stars?: number;
+    rating_count?: number;
+}
