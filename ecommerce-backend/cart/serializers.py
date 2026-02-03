@@ -4,7 +4,7 @@ from products.serializers import ProductSerializer
 
 class CartItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
-    product_id = serializers.IntegerField(write_only=True)
+    product_id = serializers.UUIDField(write_only=True, required=True)
     total_price_cents = serializers.IntegerField(read_only=True)
     
     class Meta:

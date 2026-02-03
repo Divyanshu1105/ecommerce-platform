@@ -9,8 +9,29 @@ export function OrdersPage({ cart, loadCart }) {
 
     useEffect(() => {
         const getOrdersData = async () => {
-            const response = await axios.get('/api/orders?expand=products')
-            setOrders(response.data);
+            try {
+                // Try to get cart items instead of orders
+                const response = await axios.get('/api/cart-items?expand=product');
+
+                // Create a single order from cart items
+                const orderFromCart = {
+                    id: 'cart-' + Date.now(),
+                    orderTimeMs: Date.now(),
+                    totalCostCents: response.data.reduce((sum, item) =>
+                        sum + (item.product?.priceCents || 0) * item.quantity, 0
+                    ),
+                    products: response.data.map(item => ({
+                        product: item.product,
+                        quantity: item.quantity,
+                        estimatedDeliveryTimeMs: Date.now() + 604800000 // 7 days
+                    }))
+                };
+
+                setOrders([orderFromCart]);
+            } catch (error) {
+                console.log('Showing empty cart (no items or error)');
+                setOrders([]);
+            }
         }
 
         getOrdersData();
@@ -18,13 +39,14 @@ export function OrdersPage({ cart, loadCart }) {
 
     return (
         <>
-            <title>Orders</title>
+            <title>Your Cart</title>
             <link rel="icon" type="image/svg+xml" href="orders-favicon.png" />
             <Header cart={cart} />
 
-
             <div className="orders-page">
-                <div className="page-title">Your Orders</div>
+                <div className="page-title">
+                    {orders.length > 0 ? 'Your Cart Items' : 'Your Cart is Empty'}
+                </div>
 
                 <OrdersGrid orders={orders} loadCart={loadCart} />
             </div>
