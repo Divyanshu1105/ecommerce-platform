@@ -10,3 +10,10 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = ['id', 'product', 'product_id', 'quantity', 'added_at', 'total_price_cents']
+
+        read_only_fields = ['id', 'added_at', 'product', 'total_price_cents']
+
+    def create(self, validated_data):
+    # Remove product_id from validated_data as we'll handle it in view
+        validated_data.pop('product_id', None)
+        return super().create(validated_data)
