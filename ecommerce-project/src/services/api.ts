@@ -1,6 +1,7 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+// Use environment variable with fallback
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
 
 class ApiService {
     private axiosInstance: AxiosInstance;
@@ -17,13 +18,10 @@ class ApiService {
     }
 
     private setupInterceptors(): void {
-        // Request interceptor (unchanged)
+        // Request interceptor
         this.axiosInstance.interceptors.request.use(
             (config: InternalAxiosRequestConfig) => {
-                console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, {
-                    data: config.data,
-                    params: config.params,
-                });
+                console.log(`[API Request] ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
                 return config;
             },
             (error) => {
@@ -32,10 +30,10 @@ class ApiService {
             }
         );
 
-        // Response interceptor (unchanged)
+        // Response interceptor
         this.axiosInstance.interceptors.response.use(
             (response: AxiosResponse) => {
-                console.log(`[API Response] ${response.status} ${response.config.url}`, response.data);
+                console.log(`[API Response] ${response.status} ${response.config.url}`);
                 return response;
             },
             (error) => {
@@ -44,16 +42,16 @@ class ApiService {
                     statusText: error.response?.statusText,
                     data: error.response?.data,
                     url: error.config?.url,
+                    baseURL: error.config?.baseURL,
                 });
 
+                // Custom error messages
                 if (error.response?.status === 404) {
-                    error.message = 'Resource not found';
-                } else if (error.response?.status === 401) {
-                    error.message = 'Unauthorized access';
+                    error.message = `Resource not found at ${error.config?.url}`;
                 } else if (error.response?.status === 500) {
-                    error.message = 'Internal server error';
+                    error.message = 'Django server error - check Django terminal';
                 } else if (!error.response) {
-                    error.message = 'Network error - please check your connection';
+                    error.message = `Network error - Check if Django is running at ${error.config?.baseURL}`;
                 }
 
                 return Promise.reject(error);
@@ -61,10 +59,9 @@ class ApiService {
         );
     }
 
-    //  FIXED: Unwraps ApiResponse<T>.data + generics
     public get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> {
         return this.axiosInstance.get<T>(url, config)
-            .then((response) => response.data); // Change response.data.data to response.data
+            .then((response) => response.data);
     }
 
     public post<T = unknown, D = unknown>(url: string, data?: D, config?: AxiosRequestConfig): Promise<T> {
