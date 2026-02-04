@@ -19,12 +19,19 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from products.views import ProductViewSet
 from cart.views import CartItemViewSet
+from orders.views import OrderViewSet
+from delivery.views import DeliveryOptionViewSet
+
 
 router = DefaultRouter()
 router.register(r'products',ProductViewSet)
-router.register(r'cart-items',CartItemViewSet)
+router.register(r'cart-items', CartItemViewSet, basename='cartitem')
+router.register(r'orders', OrderViewSet, basename='order')
+router.register(r'delivery-options', DeliveryOptionViewSet, basename='deliveryoption')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include(router.urls))
+    path('api/',include(router.urls)),
+    path('api/payment-summary/',CartItemViewSet.as_view({'get' : 'payment-summary'}),name='payment-summary'),
 ]

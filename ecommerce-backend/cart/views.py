@@ -76,3 +76,31 @@ class CartItemViewSet(viewsets.ModelViewSet):
                 {"error": str(e)},
                 status=status.HTTP_400_BAD_REQUEST
             )
+        
+    @action(detail=False, methods=['get'])
+    def payment_summary(self, request):
+        """GET /api/cart-items/payment-summary/"""
+        cart_items = self.get_queryset()
+        
+        product_cost_cents = 0
+        total_items = 0
+        
+        for item in cart_items:
+            if hasattr(item, 'product') and item.product:
+                product_cost_cents += item.product.price_cents * item.quantity
+                total_items += item.quantity
+        
+        # Calculate payment summary
+        shipping_cost_cents = 0  # Free shipping
+        tax_cents = int(product_cost_cents * 0.10)  # 10% tax
+        total_cost_before_tax_cents = product_cost_cents + shipping_cost_cents
+        total_cost_cents = total_cost_before_tax_cents + tax_cents
+        
+        return Response({
+            'totalItems': total_items,
+            'productCostCents': product_cost_cents,
+            'shippingCostCents': shipping_cost_cents,
+            'totalCostBeforeTaxCents': total_cost_before_tax_cents,
+            'taxCents': tax_cents,
+            'totalCostCents': total_cost_cents
+        })

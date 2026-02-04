@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import DeliveryOption
+from .serializers import DeliveryOptionSerializer
 
-# Create your views here.
+class DeliveryOptionViewSet(viewsets.ModelViewSet):
+    queryset = DeliveryOption.objects.all()
+    serializer_class = DeliveryOptionSerializer
