@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import DeliveryOption
+from .models import DeliveryOptions
 import time
 
 class DeliveryOptionSerializer(serializers.ModelSerializer):
@@ -7,7 +7,7 @@ class DeliveryOptionSerializer(serializers.ModelSerializer):
     estimatedDeliveryTimeMs = serializers.SerializerMethodField()
     
     class Meta:
-        model = DeliveryOption
+        model = DeliveryOptions
         fields = ['id', 'name', 'description', 'priceCents', 'estimatedDeliveryTimeMs']
     
     def get_estimatedDeliveryTimeMs(self, obj):

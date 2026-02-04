@@ -7,13 +7,13 @@ export function CartItemDetails({ cartItem, loadCart }) {
     const [quantity, setQuantity] = useState(cartItem.quantity);
 
     const deleteCartItem = async () => {
-        await axios.delete(`/api/cart-items/${cartItem.productId}`);
+        await axios.delete(`/api/cart-items/${cartItem.id}/`);
         await loadCart();
     }
 
     const updateQuantity = async () => {
         if (isUpdatingQuantity) {
-            axios.put(`/api/cart-items/${cartItem.productId}`, {
+            axios.put(`/api/cart-items/${cartItem.id}/`, {
                 quantity: Number(quantity),
             });
             await loadCart();

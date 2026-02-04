@@ -33,5 +33,4 @@ router.register(r'delivery-options', DeliveryOptionViewSet, basename='deliveryop
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include(router.urls)),
-    path('api/payment-summary/',CartItemViewSet.as_view({'get' : 'payment-summary'}),name='payment-summary'),
 ]
