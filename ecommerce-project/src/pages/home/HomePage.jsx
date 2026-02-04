@@ -109,13 +109,10 @@ export function HomePage({ cart, loadCart }) {
             <link rel="icon" type="image/svg+xml" href="home-favicon.png" />
             <Header cart={cart} />
             <div className="home-page">
-                <div className="connection-status success">
-                    ✅ Connected to Django API • {products.length} products loaded
-                </div>
 
                 {search && (
                     <div className="search-status">
-                        🔍 Search results for: "<strong>{search}</strong>"
+                        Search results for: "<strong>{search}</strong>"
                     </div>
                 )}
 

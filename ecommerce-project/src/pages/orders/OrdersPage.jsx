@@ -1,3 +1,4 @@
+// ecommerce-project/src/pages/orders/OrdersPage.jsx
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Header } from '../../components/Header';
@@ -6,49 +7,49 @@ import { OrdersGrid } from './OrdersGrid';
 
 export function OrdersPage({ cart, loadCart }) {
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getOrdersData = async () => {
             try {
-                // Try to get cart items instead of orders
-                const response = await axios.get('/api/cart-items?expand=product');
-
-                // Create a single order from cart items
-                const orderFromCart = {
-                    id: 'cart-' + Date.now(),
-                    orderTimeMs: Date.now(),
-                    totalCostCents: response.data.reduce((sum, item) =>
-                        sum + (item.product?.priceCents || 0) * item.quantity, 0
-                    ),
-                    products: response.data.map(item => ({
-                        product: item.product,
-                        quantity: item.quantity,
-                        estimatedDeliveryTimeMs: Date.now() + 604800000 // 7 days
-                    }))
-                };
-
-                setOrders([orderFromCart]);
+                setLoading(true);
+                const response = await axios.get('/api/orders?expand=products');
+                setOrders(response.data);
             } catch (error) {
-                console.log('Showing empty cart (no items or error)');
-                setOrders([]);
+                console.error('Error loading orders:', error);
+                setOrders([]); // Empty array on error
+            } finally {
+                setLoading(false);
             }
         }
 
         getOrdersData();
     }, []);
 
+    if (loading) {
+        return (
+            <>
+                <title>Orders - Loading</title>
+                <Header cart={cart} />
+                <div className="orders-page">
+                    <div className="page-title">Your Orders</div>
+                    <div className="loading">Loading orders...</div>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
-            <title>Your Cart</title>
-            <link rel="icon" type="image/svg+xml" href="orders-favicon.png" />
+            <title>Orders</title>
             <Header cart={cart} />
-
             <div className="orders-page">
-                <div className="page-title">
-                    {orders.length > 0 ? 'Your Cart Items' : 'Your Cart is Empty'}
-                </div>
-
-                <OrdersGrid orders={orders} loadCart={loadCart} />
+                <div className="page-title">Your Orders</div>
+                {orders.length === 0 ? (
+                    <div className="no-orders">No orders yet</div>
+                ) : (
+                    <OrdersGrid orders={orders} loadCart={loadCart} />
+                )}
             </div>
         </>
     );

@@ -1,11 +1,28 @@
 import dayjs from 'dayjs';
 import axios from 'axios';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react'; // Add useState
 import { formatMoney } from '../../utils/money';
 import BuyAgainIcon from '../../assets/images/icons/buy-again.png';
 
-
 export function OrdersGrid({ orders, loadCart }) {
+    // Track updated quantities
+    const [updatedQuantities, setUpdatedQuantities] = useState({});
+
+    const addToCart = async (productId) => {
+        await axios.post('/api/cart-items/', {
+            product_id: productId,
+            quantity: 1
+        });
+
+        // Update quantity in local state
+        setUpdatedQuantities(prev => ({
+            ...prev,
+            [productId]: (prev[productId] || 0) + 1
+        }));
+
+        await loadCart();
+    };
+
     return (
         <div className="orders-grid">
             {orders.map((order) => {
@@ -32,17 +49,12 @@ export function OrdersGrid({ orders, loadCart }) {
 
                         <div className="order-details-grid">
                             {order.products.map((orderProduct) => {
-                                const addToCart = async () => {
-                                    await axios.post('/api/cart-items/', {
-                                        product_id: orderProduct.product.id,
-                                        quantity: 1
-                                    });
-                                    await loadCart();
-                                };
-
+                                const productId = orderProduct.product.id;
+                                const addedQuantity = updatedQuantities[productId] || 0;
+                                const displayQuantity = orderProduct.quantity + addedQuantity;
 
                                 return (
-                                    <Fragment key={orderProduct.product.id}>
+                                    <Fragment key={productId}>
                                         <div className="product-image-container">
                                             <img src={orderProduct.product.image} />
                                         </div>
@@ -55,17 +67,17 @@ export function OrdersGrid({ orders, loadCart }) {
                                                 Arriving on: {dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D')}
                                             </div>
                                             <div className="product-quantity">
-                                                Quantity: {orderProduct.quantity}
+                                                Quantity: {displayQuantity} {/* Shows updated quantity */}
                                             </div>
                                             <button className="buy-again-button button-primary"
-                                                onClick={addToCart}>
+                                                onClick={() => addToCart(productId)}>
                                                 <img className="buy-again-icon" src={BuyAgainIcon} />
                                                 <span className="buy-again-message">Add to Cart</span>
                                             </button>
                                         </div>
 
                                         <div className="product-actions">
-                                            <a href={`/tracking/${order.id}/${orderProduct.product.id}`}>
+                                            <a href={`/tracking/${order.id}/${productId}`}>
                                                 <button className="track-package-button button-secondary">
                                                     Track package
                                                 </button>
