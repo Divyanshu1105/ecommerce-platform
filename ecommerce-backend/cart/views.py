@@ -4,25 +4,29 @@ from rest_framework.decorators import action
 from .models import CartItem
 from .serializers import CartItemSerializer
 from products.models import Product
+from delivery.models import DeliveryOptions
 
 class CartItemViewSet(viewsets.ModelViewSet):
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
 
     def get_queryset(self):
-        queryset = CartItem.objects.all()
-        return queryset.select_related('product')
+        # Always select_related to avoid N+1 queries
+        return CartItem.objects.select_related('product', 'delivery_option')
     
     def list(self, request):
-        expand = request.query_params.get('expand', '')
-
-        if 'product' in expand:
+        # SIMPLIFY THIS METHOD - remove the expand logic causing issues
+        try:
             queryset = self.get_queryset()
-        else:
-            queryset = CartItem.objects.all()
-
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            # Log the error for debugging
+            print(f"Error in cart list: {str(e)}")
+            return Response(
+                {"error": "Internal server error", "details": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
     
     def create(self, request, *args, **kwargs):
         try:
@@ -65,6 +69,33 @@ class CartItemViewSet(viewsets.ModelViewSet):
                 {"error": str(e)},
                 status=status.HTTP_400_BAD_REQUEST
             )
+    
+    def update(self, request, *args, **kwargs):
+        """Handle updating delivery option"""
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        
+        # Handle delivery_option_id update
+        if 'delivery_option_id' in request.data:
+            delivery_option_id = request.data['delivery_option_id']
+            try:
+                delivery_option = DeliveryOptions.objects.get(id=delivery_option_id)
+                instance.delivery_option = delivery_option
+                instance.save()
+                
+                # Remove from request.data so serializer doesn't try to process it
+                request.data.pop('delivery_option_id', None)
+            except DeliveryOptions.DoesNotExist:
+                return Response(
+                    {"error": f"Delivery option with id {delivery_option_id} does not exist"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+        
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        
+        return Response(serializer.data)
     
     def destroy(self, request, *args, **kwargs):
         try:
