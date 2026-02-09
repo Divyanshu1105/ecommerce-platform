@@ -47,22 +47,45 @@ class CartItemViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_404_NOT_FOUND
                 )
             
+            # Handle delivery_option_id if present
+            delivery_option = None
+            if 'delivery_option_id' in request.data:
+                delivery_option_id = request.data.get('delivery_option_id')
+                if delivery_option_id:
+                    try:
+                        delivery_option = DeliveryOptions.objects.get(id=delivery_option_id)
+                    except DeliveryOptions.DoesNotExist:
+                        return Response(
+                            {"error": f"Delivery option with id {delivery_option_id} does not exist"},
+                            status=status.HTTP_404_NOT_FOUND
+                        )
+            
             # Check if item already exists in cart
             cart_item = CartItem.objects.filter(product=product).first()
             if cart_item:
                 # Update quantity if exists
                 quantity = request.data.get('quantity', 1)
                 cart_item.quantity += quantity
+                
+                # Update delivery option if provided
+                if delivery_option:
+                    cart_item.delivery_option = delivery_option
+                
                 cart_item.save()
                 serializer = self.get_serializer(cart_item)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
-                # Create new cart item
-                serializer = self.get_serializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
-                serializer.save(product=product)
-                headers = self.get_success_headers(serializer.data)
-                return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+                # Create new cart item with delivery option
+                cart_item_data = {
+                    'product': product,
+                    'quantity': request.data.get('quantity', 1)
+                }
+                if delivery_option:
+                    cart_item_data['delivery_option'] = delivery_option
+                
+                cart_item = CartItem.objects.create(**cart_item_data)
+                serializer = self.get_serializer(cart_item)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
                 
         except Exception as e:
             return Response(
@@ -71,32 +94,38 @@ class CartItemViewSet(viewsets.ModelViewSet):
             )
     
     def update(self, request, *args, **kwargs):
-        """Handle updating delivery option"""
+        """Handle updating delivery option and quantity"""
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
         
-        # Handle delivery_option_id update
+        # Handle delivery_option_id if present
         if 'delivery_option_id' in request.data:
-            delivery_option_id = request.data['delivery_option_id']
-            try:
-                delivery_option = DeliveryOptions.objects.get(id=delivery_option_id)
-                instance.delivery_option = delivery_option
-                instance.save()
-                
-                # Remove from request.data so serializer doesn't try to process it
-                request.data.pop('delivery_option_id', None)
-            except DeliveryOptions.DoesNotExist:
-                return Response(
-                    {"error": f"Delivery option with id {delivery_option_id} does not exist"},
-                    status=status.HTTP_404_NOT_FOUND
-                )
+            delivery_option_id = request.data.get('delivery_option_id')
+            if delivery_option_id:
+                try:
+                    delivery_option = DeliveryOptions.objects.get(id=delivery_option_id)
+                    instance.delivery_option = delivery_option
+                except DeliveryOptions.DoesNotExist:
+                    return Response(
+                        {"error": f"Delivery option with id {delivery_option_id} does not exist"},
+                        status=status.HTTP_404_NOT_FOUND
+                    )
+            else:
+                # If delivery_option_id is empty/null, remove the delivery option
+                instance.delivery_option = None
         
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
+        # Handle quantity update
+        if 'quantity' in request.data:
+            instance.quantity = request.data['quantity']
         
+        # Save the instance
+        instance.save()
+        
+        # Return the updated data
+        serializer = self.get_serializer(instance)
         return Response(serializer.data)
     
+
     def destroy(self, request, *args, **kwargs):
         try:
             instance = self.get_object()

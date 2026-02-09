@@ -1,11 +1,19 @@
 import dayjs from 'dayjs';
 
 export function DeliveryDate({ cartItem, deliveryOptions }) {
-    console.log('cartItem:', cartItem);
-    console.log('deliveryOptions:', deliveryOptions);
-    console.log('cartItem.delivery_option_id:', cartItem.delivery_option_id);
+    // Find matching delivery option
     const selectedDeliveryOption = deliveryOptions?.find(
-        (deliveryOption) => deliveryOption.id === cartItem.delivery_option_id
+        (deliveryOption) => {
+            // If cartItem has delivery_option object
+            if (cartItem.delivery_option && cartItem.delivery_option.id === deliveryOption.id) {
+                return true;
+            }
+            // If cartItem has delivery_option_id field
+            if (cartItem.delivery_option_id && cartItem.delivery_option_id === deliveryOption.id) {
+                return true;
+            }
+            return false;
+        }
     );
 
     if (!selectedDeliveryOption?.estimatedDeliveryTimeMs) {

@@ -13,10 +13,15 @@ export function CartItemDetails({ cartItem, loadCart }) {
 
     const updateQuantity = async () => {
         if (isUpdatingQuantity) {
-            axios.put(`/api/cart-items/${cartItem.id}/`, {
-                quantity: Number(quantity),
-            });
-            await loadCart();
+            try {
+                await axios.put(`/api/cart-items/${cartItem.id}/`, {
+                    quantity: Number(quantity)
+                });
+                await loadCart();
+            } catch (error) {
+                console.error('Update quantity error:', error);
+                alert('Failed to update quantity: ' + (error.response?.data?.error || error.message));
+            }
             setIsUpdatingQuantity(false);
         } else {
             setIsUpdatingQuantity(true);

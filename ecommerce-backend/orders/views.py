@@ -16,7 +16,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         # Expand products if requested
         expand = self.request.query_params.get('expand', '')
         if 'products' in expand:
-            queryset = queryset.prefetch_related('orderitem_set__product')
+            queryset = queryset.prefetch_related('items__product') 
         return queryset
     
     def list(self, request):
