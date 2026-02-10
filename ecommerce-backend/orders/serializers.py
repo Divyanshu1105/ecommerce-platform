@@ -12,7 +12,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'product', 'price_cents']
 
 class OrderSerializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True, read_only=True, source='items')
+    items = OrderItemSerializer(many=True, read_only=True)  # Removed source='items'
     orderTimeMs = serializers.SerializerMethodField()
     totalCostCents = serializers.IntegerField(source='total_cost_cents')
     

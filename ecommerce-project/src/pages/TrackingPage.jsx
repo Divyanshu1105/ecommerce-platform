@@ -8,26 +8,85 @@ import './TrackingPage.css'
 export function TrackingPage({ cart }) {
     const { orderId, productId } = useParams();
     const [order, setOrder] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchTrackingData = async () => {
-            const response = await axios.get(`/api/orders/${orderId}?expand=products`);
-            setOrder(response.data);
+            try {
+                setLoading(true);
+                const response = await axios.get(`/api/orders/${orderId}?expand=products`);
+                console.log('Order data:', response.data); // Debug log
+                setOrder(response.data);
+            } catch (error) {
+                console.error('Error fetching order:', error);
+                setError(`Failed to load order: ${error.response?.data?.error || error.message}`);
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchTrackingData();
     }, [orderId]);
 
-    if (!order) {
-        return null;
+    if (loading) {
+        return (
+            <>
+                <title>Tracking - Loading</title>
+                <Header cart={cart} />
+                <div className="tracking-page">
+                    <div className="loading">Loading tracking information...</div>
+                </div>
+            </>
+        );
     }
 
-    const orderProduct = order.products.find((orderProduct) => {
-        return orderProduct.productId === productId;
+    if (error || !order) {
+        return (
+            <>
+                <title>Tracking - Error</title>
+                <Header cart={cart} />
+                <div className="tracking-page">
+                    <div className="error">
+                        {error || 'Order not found'}
+                        <Link className="back-to-orders-link link-primary" to="/orders">
+                            Back to Orders
+                        </Link>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    // Find the order item by product ID
+    const orderItem = order.items?.find((item) => {
+        return item.product.id === productId;
     });
 
-    const totalDeliveryTimeMs = orderProduct.estimatedDeliveryTimeMs - order.orderTimeMs;
-    const timePassedMs = dayjs().valueOf() - order.orderTimeMs;
+    if (!orderItem) {
+        return (
+            <>
+                <title>Tracking - Not Found</title>
+                <Header cart={cart} />
+                <div className="tracking-page">
+                    <div className="error">
+                        Product not found in this order
+                        <Link className="back-to-orders-link link-primary" to="/orders">
+                            Back to Orders
+                        </Link>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    // Calculate delivery progress
+    // Note: OrderItem doesn't have estimatedDeliveryTimeMs, so we need to calculate or get from delivery option
+    const orderTimeMs = order.orderTimeMs;
+    const estimatedDeliveryTimeMs = orderTimeMs + (7 * 24 * 60 * 60 * 1000); // Default 7 days delivery
+
+    const totalDeliveryTimeMs = estimatedDeliveryTimeMs - orderTimeMs;
+    const timePassedMs = dayjs().valueOf() - orderTimeMs;
 
     let deliveryPercent = (timePassedMs / totalDeliveryTimeMs) * 100;
     if (deliveryPercent > 100) {
@@ -52,18 +111,18 @@ export function TrackingPage({ cart }) {
 
                     <div className="delivery-date">
                         {deliveryPercent >= 100 ? 'Delivered on ' : 'Arriving on '}
-                        {dayjs(orderProduct.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
+                        {dayjs(estimatedDeliveryTimeMs).format('dddd, MMMM D')}
                     </div>
 
                     <div className="product-info">
-                        {orderProduct.product.name}
+                        {orderItem.product.name}
                     </div>
 
                     <div className="product-info">
-                        Quantity: {orderProduct.quantity}
+                        Quantity: {orderItem.quantity}
                     </div>
 
-                    <img className="product-image" src={orderProduct.product.image} />
+                    <img className="product-image" src={orderItem.product.image} />
 
                     <div className="progress-labels-container">
                         <div className={`progress-label ${isPreparing && 'current-status'}`}>

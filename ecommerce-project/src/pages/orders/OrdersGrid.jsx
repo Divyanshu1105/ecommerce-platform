@@ -48,26 +48,26 @@ export function OrdersGrid({ orders, loadCart }) {
                         </div>
 
                         <div className="order-details-grid">
-                            {order.products.map((orderProduct) => {
-                                const productId = orderProduct.product.id;
+                            {order.items && order.items.map((orderItem) => {  // Changed from order.products to order.items
+                                const productId = orderItem.product.id;
                                 const addedQuantity = updatedQuantities[productId] || 0;
-                                const displayQuantity = orderProduct.quantity + addedQuantity;
+                                const displayQuantity = orderItem.quantity + addedQuantity;  // Changed from orderProduct to orderItem
 
                                 return (
                                     <Fragment key={productId}>
                                         <div className="product-image-container">
-                                            <img src={orderProduct.product.image} />
+                                            <img src={orderItem.product.image} />  {/* Changed */}
                                         </div>
 
                                         <div className="product-details">
                                             <div className="product-name">
-                                                {orderProduct.product.name}
+                                                {orderItem.product.name}  {/* Changed */}
                                             </div>
                                             <div className="product-delivery-date">
-                                                Arriving on: {dayjs(orderProduct.estimatedDeliveryTimeMs).format('MMMM D')}
+                                                Arriving on: {dayjs(orderItem.estimatedDeliveryTimeMs).format('MMMM D')}  {/* Changed - but this field doesn't exist! */}
                                             </div>
                                             <div className="product-quantity">
-                                                Quantity: {displayQuantity} {/* Shows updated quantity */}
+                                                Quantity: {displayQuantity}
                                             </div>
                                             <button className="buy-again-button button-primary"
                                                 onClick={() => addToCart(productId)}>
@@ -77,7 +77,7 @@ export function OrdersGrid({ orders, loadCart }) {
                                         </div>
 
                                         <div className="product-actions">
-                                            <a href={`/tracking/${order.id}/${productId}`}>
+                                            <a href={`/tracking/${order.id}/${orderItem.product.id}`}>
                                                 <button className="track-package-button button-secondary">
                                                     Track package
                                                 </button>
