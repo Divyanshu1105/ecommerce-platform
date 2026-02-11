@@ -2,7 +2,7 @@ import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import { useState } from 'react';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
-import LogoWhite from '../assets/images/logo-white.png';
+import LogoWhite from '../assets/images/logo-white.jpg';
 import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
 import './Header.css';
 
