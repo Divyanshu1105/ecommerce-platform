@@ -1,0 +1,27 @@
+<!-- Save as test-images.html in ecommerce-project root -->
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>Image Test</h1>
+
+    <h2>Rating Images:</h2>
+    <img src="/images/ratings/rating-45.png" alt="rating 45" style="border: 2px solid red;">
+    <img src="/images/ratings/rating-50.png" alt="rating 50" style="border: 2px solid blue;">
+
+    <h2>Product Image:</h2>
+    <img src="/images/products/kitchen-paper-towels-8-pack.jpg" alt="product" style="border: 2px solid green;">
+
+    <script>
+        // Test if images load
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.onload = () => console.log(`✓ Loaded: ${img.src}`);
+                img.onerror = () => console.log(`✗ Failed: ${img.src}`);
+            });
+        });
+    </script>
+</body>
+
+</html>
