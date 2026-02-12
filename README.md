@@ -79,7 +79,7 @@ A production-ready full-stack e-commerce platform built with Django REST Framewo
 ## 🚀 Quick Start
 
 ### Prerequisites
-```bash
+bash
 Python 3.10+
 Node.js 18+
 npm/yarn
@@ -115,7 +115,7 @@ Git
         # Start server
         python manage.py runserver
 
-    3. Frontend Setup
+   3. Frontend Setup
         # Open new terminal
         cd ecommerce-project
 
@@ -160,33 +160,31 @@ Git
 📝 What I Learned
     Blog posts in progress:
 
-    <details> <summary><b>🔧 Technical Challenges Solved</b></summary>
-    1. Real-time Delivery Cost Calculation - Implementing live updates when users change delivery options
+   <details> <summary><b>🔧 Technical Challenges Solved</b></summary>
+   1. Real-time Delivery Cost Calculation - Implementing live updates when users change delivery options
 
-    2. Django + React Integration - Managing snake_case/camelCase conversion across the stack
+   2. Django + React Integration - Managing snake_case/camelCase conversion across the stack
 
-    3. Database Optimization - Using select_related to reduce query count by 80%
+   3. Database Optimization - Using select_related to reduce query count by 80%
 
-    4. Order Tracking Logic - Calculating delivery progress percentages
+   4. Order Tracking Logic - Calculating delivery progress percentages
 
-    5. UUID Primary Keys - Implementing them in Django and maintaining consistency
+   5. UUID Primary Keys - Implementing them in Django and maintaining consistency
 
-    </details><details> <summary><b>💡 Key Takeaways</b></summary>
-    * Deploy early, iterate often
+   </details><details> <summary><b>💡 Key Takeaways</b></summary>
+   * Deploy early, iterate often
 
-    * Test with real data from day one
+   * Test with real data from day one
 
-    * Document as you build, not after
+   * Document as you build, not after
+   
+   * One working feature > five half-finished ones
 
-    * One working feature > five half-finished ones
-
-    </details>
+   </details>
 
 ---
 
 ## 📄 License
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -205,9 +203,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Divyanshu Singh**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/divyanshusinghtechie11)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DIVYANSHU1105)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:divyanshusingh.techie@gmail.com)
+[LinkedIn](https://linkedin.com/in/divyanshusinghtechie11)
+[GitHub](https://github.com/DIVYANSHU1105)
+[Email](mailto:divyanshusingh.techie@gmail.com)
 
 ---
 
