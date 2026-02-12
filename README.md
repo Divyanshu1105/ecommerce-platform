@@ -9,7 +9,6 @@ A production-ready full-stack e-commerce platform built with Django REST Framewo
 - [🛠️ Tech Stack](#️-tech-stack)
 - [🚀 Quick Start](#-quick-start)
 - [📸 Screenshots](#-screenshots)
-- [🏗️ Architecture](#️-architecture)
 - [📝 What I Learned](#-what-i-learned)
 - [📄 License](#-license)
 - [📬 Contact](#-contact)
@@ -85,11 +84,11 @@ Node.js 18+
 npm/yarn
 Git
  
-   1. Clone Repository
+    1. Clone Repository
         git clone https://github.com/DIVYANSHU1105/ecommerce-platform.git
         cd ecommerce-platform
 
-   2. Backend Setup
+    2. Backend Setup
         # Navigate to backend
         cd ecommerce-backend
 
@@ -115,7 +114,7 @@ Git
         # Start server
         python manage.py runserver
 
-   3. Frontend Setup
+    3. Frontend Setup
         # Open new terminal
         cd ecommerce-project
 
@@ -127,22 +126,6 @@ Git
 
 
 ---
-
- ## 🏗️ Architecture
- ┌─────────────┐ ┌──────────────┐ ┌─────────────┐
-│ React │────▶│ Django API │────▶│ Database    │
-│ Frontend │◀────│ Backend │◀────│ SQLlite    │
-└─────────────┘ └──────────────┘ └─────────────┘
-│
-┌──────┴──────┐
-│ External │
-│ Services │
-└──────┬──────┘
-┌──────┴──────┐
-│ Stripe │
-│ (Soon) │
-└─────────────┘
-
 
 
 ## 🎯 Key Design Decisions
