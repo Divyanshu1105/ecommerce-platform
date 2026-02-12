@@ -25,17 +25,15 @@ const pageConfig = {
 
 export function PageMeta({ title, favicon }) {
     useEffect(() => {
-        // Update page title
         if (title) {
             document.title = title;
         }
 
-        // Update favicon
         if (favicon) {
             const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
             link.type = 'image/png';
             link.rel = 'icon';
-            link.href = `/favicons/${favicon}`;
+            link.href = `/${favicon}`;
 
             if (!document.querySelector("link[rel*='icon']")) {
                 document.head.appendChild(link);

@@ -1,9 +1,9 @@
-// ecommerce-project/src/pages/orders/OrdersPage.jsx
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Header } from '../../components/Header';
-import './OrdersPage.css'
+import { PageMeta } from '../../components/PageMeta';
 import { OrdersGrid } from './OrdersGrid';
+import './OrdersPage.css';
 
 export function OrdersPage({ cart, loadCart }) {
     const [orders, setOrders] = useState([]);
@@ -15,13 +15,12 @@ export function OrdersPage({ cart, loadCart }) {
                 setLoading(true);
                 const response = await axios.get('/api/orders?expand=products');
                 setOrders(response.data);
-            } catch (error) {
-                console.error('Error loading orders:', error);
-                setOrders([]); // Empty array on error
+            } catch {
+                setOrders([]);
             } finally {
                 setLoading(false);
             }
-        }
+        };
 
         getOrdersData();
     }, []);
@@ -29,7 +28,7 @@ export function OrdersPage({ cart, loadCart }) {
     if (loading) {
         return (
             <>
-                <title>Orders - Loading</title>
+                <PageMeta title="Your Orders - Ecommerce Store" favicon="orders-favicon.png" />
                 <Header cart={cart} />
                 <div className="orders-page">
                     <div className="page-title">Your Orders</div>
@@ -41,7 +40,7 @@ export function OrdersPage({ cart, loadCart }) {
 
     return (
         <>
-            <title>Orders</title>
+            <PageMeta title="Your Orders - Ecommerce Store" favicon="orders-favicon.png" />
             <Header cart={cart} />
             <div className="orders-page">
                 <div className="page-title">Your Orders</div>

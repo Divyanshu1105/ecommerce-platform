@@ -3,7 +3,8 @@ import dayjs from 'dayjs';
 import { Link, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { Header } from '../components/Header';
-import './TrackingPage.css'
+import { PageMeta } from '../components/PageMeta';
+import './TrackingPage.css';
 
 export function TrackingPage({ cart }) {
     const { orderId, productId } = useParams();
@@ -16,11 +17,9 @@ export function TrackingPage({ cart }) {
             try {
                 setLoading(true);
                 const response = await axios.get(`/api/orders/${orderId}?expand=products`);
-                console.log('Order data:', response.data); // Debug log
                 setOrder(response.data);
-            } catch (error) {
-                console.error('Error fetching order:', error);
-                setError(`Failed to load order: ${error.response?.data?.error || error.message}`);
+            } catch {
+                setError('Unable to load tracking information. Please try again.');
             } finally {
                 setLoading(false);
             }
@@ -32,7 +31,7 @@ export function TrackingPage({ cart }) {
     if (loading) {
         return (
             <>
-                <title>Tracking - Loading</title>
+                <PageMeta title="Order Tracking - Ecommerce Store" favicon="tracking-favicon.png" />
                 <Header cart={cart} />
                 <div className="tracking-page">
                     <div className="loading">Loading tracking information...</div>
@@ -44,7 +43,7 @@ export function TrackingPage({ cart }) {
     if (error || !order) {
         return (
             <>
-                <title>Tracking - Error</title>
+                <PageMeta title="Order Tracking - Ecommerce Store" favicon="tracking-favicon.png" />
                 <Header cart={cart} />
                 <div className="tracking-page">
                     <div className="error">
@@ -58,15 +57,12 @@ export function TrackingPage({ cart }) {
         );
     }
 
-    // Find the order item by product ID
-    const orderItem = order.items?.find((item) => {
-        return item.product.id === productId;
-    });
+    const orderItem = order.items?.find((item) => item.product.id === productId);
 
     if (!orderItem) {
         return (
             <>
-                <title>Tracking - Not Found</title>
+                <PageMeta title="Order Tracking - Ecommerce Store" favicon="tracking-favicon.png" />
                 <Header cart={cart} />
                 <div className="tracking-page">
                     <div className="error">
@@ -80,18 +76,11 @@ export function TrackingPage({ cart }) {
         );
     }
 
-    // Calculate delivery progress
-    // Note: OrderItem doesn't have estimatedDeliveryTimeMs, so we need to calculate or get from delivery option
     const orderTimeMs = order.orderTimeMs;
-    const estimatedDeliveryTimeMs = orderTimeMs + (7 * 24 * 60 * 60 * 1000); // Default 7 days delivery
-
+    const estimatedDeliveryTimeMs = orderTimeMs + (7 * 24 * 60 * 60 * 1000);
     const totalDeliveryTimeMs = estimatedDeliveryTimeMs - orderTimeMs;
     const timePassedMs = dayjs().valueOf() - orderTimeMs;
-
-    let deliveryPercent = (timePassedMs / totalDeliveryTimeMs) * 100;
-    if (deliveryPercent > 100) {
-        deliveryPercent = 100;
-    }
+    const deliveryPercent = Math.min((timePassedMs / totalDeliveryTimeMs) * 100, 100);
 
     const isPreparing = deliveryPercent < 33;
     const isShipped = deliveryPercent >= 33 && deliveryPercent < 100;
@@ -99,10 +88,8 @@ export function TrackingPage({ cart }) {
 
     return (
         <>
-            <title>Tracking</title>
-            <link rel="icon" type="image/svg+xml" href="tracking-favicon.png" />
+            <PageMeta title="Order Tracking - Ecommerce Store" favicon="tracking-favicon.png" />
             <Header cart={cart} />
-
             <div className="tracking-page">
                 <div className="order-tracking">
                     <Link className="back-to-orders-link link-primary" to="/orders">
@@ -122,7 +109,7 @@ export function TrackingPage({ cart }) {
                         Quantity: {orderItem.quantity}
                     </div>
 
-                    <img className="product-image" src={orderItem.product.image} />
+                    <img className="product-image" src={orderItem.product.image} alt={orderItem.product.name} />
 
                     <div className="progress-labels-container">
                         <div className={`progress-label ${isPreparing && 'current-status'}`}>
@@ -137,9 +124,7 @@ export function TrackingPage({ cart }) {
                     </div>
 
                     <div className="progress-bar-container">
-                        <div className="progress-bar"
-                            style={{ width: `${deliveryPercent}%` }}
-                        ></div>
+                        <div className="progress-bar" style={{ width: `${deliveryPercent}%` }}></div>
                     </div>
                 </div>
             </div>

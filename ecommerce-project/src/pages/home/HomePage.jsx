@@ -1,9 +1,9 @@
-// ecommerce-project/src/pages/home/HomePage.jsx
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { Header } from '../../components/Header';
 import { ProductsGrid } from './ProductsGrid';
 import { productService } from '../../services/productService';
+import { PageMeta } from '../../components/PageMeta';
 import './HomePage.css';
 
 export function HomePage({ cart, loadCart }) {
@@ -38,7 +38,7 @@ export function HomePage({ cart, loadCart }) {
     if (loading) {
         return (
             <>
-                <title>Home</title>
+                <PageMeta title="Home - Ecommerce Store" favicon="home-favicon.png" />
                 <Header cart={cart} />
                 <div className="home-page">
                     <div className="loading-state">
@@ -53,7 +53,7 @@ export function HomePage({ cart, loadCart }) {
     if (error) {
         return (
             <>
-                <title>Home</title>
+                <PageMeta title="Home - Ecommerce Store" favicon="home-favicon.png" />
                 <Header cart={cart} />
                 <div className="home-page">
                     <div className="error-state">
@@ -73,7 +73,7 @@ export function HomePage({ cart, loadCart }) {
 
     return (
         <>
-            <title>Home</title>
+            <PageMeta title="Home - Ecommerce Store" favicon="home-favicon.png" />
             <Header cart={cart} />
             <div className="home-page">
                 {search && (
