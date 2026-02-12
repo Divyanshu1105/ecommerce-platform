@@ -144,7 +144,7 @@ Git
     Blog posts in progress:
 
    <details> <summary><b>🔧 Technical Challenges Solved</b></summary>
-   1. Real-time Delivery Cost Calculation - Implementing live updates when users change delivery options
+    1. Real-time Delivery Cost Calculation - Implementing live updates when users change delivery options
 
    2. Django + React Integration - Managing snake_case/camelCase conversion across the stack
 
@@ -155,7 +155,7 @@ Git
    5. UUID Primary Keys - Implementing them in Django and maintaining consistency
 
    </details><details> <summary><b>💡 Key Takeaways</b></summary>
-   * Deploy early, iterate often
+    * Deploy early, iterate often
 
    * Test with real data from day one
 
