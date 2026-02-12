@@ -9,11 +9,12 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
                 Choose a delivery option:
             </div>
             {deliveryOptions.map((deliveryOption) => {
-                let priceString = 'FREE Shipping';
-
-                if (deliveryOption.priceCents > 0) {
-                    priceString = `${formatMoney(deliveryOption.
-                        priceCents)} - Shipping`;
+                // Create price string
+                let priceString;
+                if (deliveryOption.priceCents === 0) {
+                    priceString = 'FREE Shipping';
+                } else {
+                    priceString = `${formatMoney(deliveryOption.priceCents)} Shipping`;
                 }
 
                 const updateDeliveryOption = async () => {
@@ -21,7 +22,6 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
                         delivery_option_id: deliveryOption.id
                     });
                     await loadCart();
-
                 };
 
                 return (
@@ -33,19 +33,22 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
                             className="delivery-option-input"
                             name={`delivery-option-${cartItem.id}`} />
                         <div>
+                            <div className="delivery-option-name">
+                                {deliveryOption.name}
+                            </div>
                             <div className="delivery-option-date">
-                                {dayjs(deliveryOption.
-                                    estimatedDeliveryTimeMs).format('dddd,MMMM, D')}
+                                {dayjs(deliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
                             </div>
                             <div className="delivery-option-price">
                                 {priceString}
                             </div>
+                            <div className="delivery-option-description">
+                                {deliveryOption.description}
+                            </div>
                         </div>
                     </div>
                 );
-
             })}
-
         </div>
     );
 }

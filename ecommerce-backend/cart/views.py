@@ -139,19 +139,23 @@ class CartItemViewSet(viewsets.ModelViewSet):
         
     @action(detail=False, methods=['get'])
     def payment_summary(self, request):
-        """GET /api/cart-items/payment-summary/"""
+        """GET /api/cart-items/payment_summary/"""
         cart_items = self.get_queryset()
         
         product_cost_cents = 0
         total_items = 0
+        shipping_cost_cents = 0  # Initialize shipping cost
         
         for item in cart_items:
             if hasattr(item, 'product') and item.product:
                 product_cost_cents += item.product.price_cents * item.quantity
                 total_items += item.quantity
+                
+                # SAFELY add shipping cost if item has a delivery option
+            if item.delivery_option and hasattr(item.delivery_option, 'price_cents'):
+                shipping_cost_cents += item.delivery_option.price_cents
         
         # Calculate payment summary
-        shipping_cost_cents = 0  # Free shipping
         tax_cents = int(product_cost_cents * 0.10)  # 10% tax
         total_cost_before_tax_cents = product_cost_cents + shipping_cost_cents
         total_cost_cents = total_cost_before_tax_cents + tax_cents
@@ -159,7 +163,7 @@ class CartItemViewSet(viewsets.ModelViewSet):
         return Response({
             'totalItems': total_items,
             'productCostCents': product_cost_cents,
-            'shippingCostCents': shipping_cost_cents,
+            'shippingCostCents': shipping_cost_cents,  # Now properly calculated
             'totalCostBeforeTaxCents': total_cost_before_tax_cents,
             'taxCents': tax_cents,
             'totalCostCents': total_cost_cents
