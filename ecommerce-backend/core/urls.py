@@ -21,7 +21,7 @@ from products.views import ProductViewSet
 from cart.views import CartItemViewSet
 from orders.views import OrderViewSet
 from delivery.views import DeliveryOptionViewSet
-
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
 router.register(r'products',ProductViewSet)
@@ -33,4 +33,6 @@ router.register(r'delivery-options', DeliveryOptionViewSet, basename='deliveryop
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include(router.urls)),
+    path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
