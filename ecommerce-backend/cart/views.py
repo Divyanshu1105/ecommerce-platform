@@ -1,34 +1,40 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.contrib.auth.models import User
 from .models import CartItem
 from .serializers import CartItemSerializer
 from products.models import Product
 from delivery.models import DeliveryOptions
 
 class CartItemViewSet(viewsets.ModelViewSet):
-    queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
-
-    def get_queryset(self):
-        # Always select_related to avoid N+1 queries
-        return CartItem.objects.select_related('product', 'delivery_option')
     
-    def list(self, request):
-        # SIMPLIFY THIS METHOD - remove the expand logic causing issues
-        try:
-            queryset = self.get_queryset()
-            serializer = self.get_serializer(queryset, many=True)
-            return Response(serializer.data)
-        except Exception as e:
-            # Log the error for debugging
-            print(f"Error in cart list: {str(e)}")
-            return Response(
-                {"error": "Internal server error", "details": str(e)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+    def get_queryset(self):
+        """Filter cart items by user"""
+        if self.request.user.is_authenticated:
+            return CartItem.objects.filter(user=self.request.user).select_related('product', 'delivery_option')
+        # For anonymous users, return empty queryset
+        # We'll handle anonymous cart in frontend with localStorage
+        return CartItem.objects.none()
+    
+    def get_permissions(self):
+        """Different permissions for different actions"""
+        if self.action in ['list', 'create', 'update', 'destroy', 'payment_summary']:
+            permission_classes = [IsAuthenticated]
+        else:
+            permission_classes = [AllowAny]
+        return [permission() for permission in permission_classes]
     
     def create(self, request, *args, **kwargs):
+        """Create cart item for authenticated user"""
+        if not request.user.is_authenticated:
+            return Response(
+                {"error": "Authentication required to add items to cart"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
         try:
             # Validate required fields
             if 'product_id' not in request.data:
@@ -60,8 +66,8 @@ class CartItemViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_404_NOT_FOUND
                         )
             
-            # Check if item already exists in cart
-            cart_item = CartItem.objects.filter(product=product).first()
+            # Check if item already exists in user's cart
+            cart_item = CartItem.objects.filter(user=request.user, product=product).first()
             if cart_item:
                 # Update quantity if exists
                 quantity = request.data.get('quantity', 1)
@@ -75,15 +81,13 @@ class CartItemViewSet(viewsets.ModelViewSet):
                 serializer = self.get_serializer(cart_item)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
-                # Create new cart item with delivery option
-                cart_item_data = {
-                    'product': product,
-                    'quantity': request.data.get('quantity', 1)
-                }
-                if delivery_option:
-                    cart_item_data['delivery_option'] = delivery_option
-                
-                cart_item = CartItem.objects.create(**cart_item_data)
+                # Create new cart item for user
+                cart_item = CartItem.objects.create(
+                    user=request.user,
+                    product=product,
+                    quantity=request.data.get('quantity', 1),
+                    delivery_option=delivery_option
+                )
                 serializer = self.get_serializer(cart_item)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
                 
@@ -94,9 +98,21 @@ class CartItemViewSet(viewsets.ModelViewSet):
             )
     
     def update(self, request, *args, **kwargs):
-        """Handle updating delivery option and quantity"""
-        partial = kwargs.pop('partial', False)
+        """Update cart item (user-specific)"""
+        if not request.user.is_authenticated:
+            return Response(
+                {"error": "Authentication required"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
         instance = self.get_object()
+        
+        # Ensure user owns this cart item
+        if instance.user != request.user:
+            return Response(
+                {"error": "You don't have permission to update this item"},
+                status=status.HTTP_403_FORBIDDEN
+            )
         
         # Handle delivery_option_id if present
         if 'delivery_option_id' in request.data:
@@ -111,59 +127,67 @@ class CartItemViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_404_NOT_FOUND
                     )
             else:
-                # If delivery_option_id is empty/null, remove the delivery option
                 instance.delivery_option = None
         
         # Handle quantity update
         if 'quantity' in request.data:
             instance.quantity = request.data['quantity']
         
-        # Save the instance
         instance.save()
-        
-        # Return the updated data
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
     
-
     def destroy(self, request, *args, **kwargs):
-        try:
-            instance = self.get_object()
-            self.perform_destroy(instance)
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except Exception as e:
+        """Delete cart item (user-specific)"""
+        if not request.user.is_authenticated:
             return Response(
-                {"error": str(e)},
-                status=status.HTTP_400_BAD_REQUEST
+                {"error": "Authentication required"},
+                status=status.HTTP_401_UNAUTHORIZED
             )
         
+        instance = self.get_object()
+        
+        # Ensure user owns this cart item
+        if instance.user != request.user:
+            return Response(
+                {"error": "You don't have permission to delete this item"},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
     @action(detail=False, methods=['get'])
     def payment_summary(self, request):
-        """GET /api/cart-items/payment_summary/"""
+        """GET /api/cart-items/payment_summary/ - User specific"""
+        if not request.user.is_authenticated:
+            return Response(
+                {"error": "Authentication required"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
         cart_items = self.get_queryset()
         
         product_cost_cents = 0
         total_items = 0
-        shipping_cost_cents = 0  # Initialize shipping cost
+        shipping_cost_cents = 0
         
         for item in cart_items:
             if hasattr(item, 'product') and item.product:
                 product_cost_cents += item.product.price_cents * item.quantity
                 total_items += item.quantity
                 
-                # SAFELY add shipping cost if item has a delivery option
             if item.delivery_option and hasattr(item.delivery_option, 'price_cents'):
                 shipping_cost_cents += item.delivery_option.price_cents
         
-        # Calculate payment summary
-        tax_cents = int(product_cost_cents * 0.10)  # 10% tax
+        tax_cents = int(product_cost_cents * 0.10)
         total_cost_before_tax_cents = product_cost_cents + shipping_cost_cents
         total_cost_cents = total_cost_before_tax_cents + tax_cents
         
         return Response({
             'totalItems': total_items,
             'productCostCents': product_cost_cents,
-            'shippingCostCents': shipping_cost_cents,  # Now properly calculated
+            'shippingCostCents': shipping_cost_cents,
             'totalCostBeforeTaxCents': total_cost_before_tax_cents,
             'taxCents': tax_cents,
             'totalCostCents': total_cost_cents
