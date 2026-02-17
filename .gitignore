@@ -11,11 +11,15 @@ venv/
 # Node
 node_modules/
 dist/
+build/
 
 # OS / Editor
 .DS_Store
 .vscode/
 .idea/
+Thumbs.db
 
 # Django
 db.sqlite3
+media/
+staticfiles/
