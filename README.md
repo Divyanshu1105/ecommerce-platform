@@ -45,32 +45,35 @@ A production-ready full-stack e-commerce platform built with Django REST Framewo
 ## 🛠️ Tech Stack
 
 <details>
-<summary><b>Backend</b></summary>
-<br>
-- **Framework:** Django 4.2 + Django REST Framework
-- **Database:** PostgreSQL (Production) / SQLite (Development)
-- **Authentication:** JWT (Coming soon)
-- **Payments:** Stripe API (Coming soon)
-- **Deployment:** Render.com / Gunicorn
+<summary><strong>Backend</strong></summary>
+
+- **Framework:** Django 4.2 + Django REST Framework  
+- **Database:** PostgreSQL (Production), SQLite (Development)  
+- **Authentication:** JWT *(Planned)*  
+- **Payments:** Stripe API *(Planned)*  
+- **Deployment:** Render / Gunicorn  
+
 </details>
 
 <details>
-<summary><b>Frontend</b></summary>
-<br>
-- **Framework:** React 18 + Vite
-- **Routing:** React Router v6
-- **HTTP Client:** Axios
-- **Date Handling:** Day.js
-- **Deployment:** Vercel/Netlify
+<summary><strong>Frontend</strong></summary>
+
+- **Framework:** React 18 + Vite  
+- **Routing:** React Router v6  
+- **HTTP Client:** Axios  
+- **Date Handling:** Day.js  
+- **Deployment:** Vercel / Netlify  
+
 </details>
 
 <details>
-<summary><b>DevOps</b></summary>
-<br>
-- **Version Control:** Git/GitHub
-- **Domain:** Namecheap
-- **SSL:** Let's Encrypt
-- **Environment:** 12-factor app methodology
+<summary><strong>DevOps & Tooling</strong></summary>
+
+- **Version Control:** Git / GitHub  
+- **Domain:** Namecheap  
+- **SSL:** Let's Encrypt  
+- **Architecture:** 12-Factor App Methodology  
+
 </details>
 
 ---
