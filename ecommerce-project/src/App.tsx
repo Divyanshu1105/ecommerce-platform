@@ -1,7 +1,8 @@
+// ecommerce-project/src/App.tsx
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { HomePage } from './pages/home/HomePage';
 import { CheckoutPage } from './pages/checkout/CheckoutPage';
@@ -12,10 +13,17 @@ import { RegisterPage } from './pages/RegisterPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import './App.css';
 
-function App() {
+// Create a separate component that uses auth
+function AppContent() {
   const [cart, setCart] = useState([]);
+  const { isAuthenticated, loading: authLoading } = useAuth();
 
   const loadCart = async () => {
+    if (!isAuthenticated) {
+      setCart([]);
+      return;
+    }
+
     try {
       const response = await axios.get('/api/cart-items/?expand=product');
       setCart(response.data);
@@ -26,37 +34,54 @@ function App() {
   };
 
   useEffect(() => {
-    loadCart();
-  }, []);
+    if (!authLoading) {
+      loadCart();
+    }
+  }, [isAuthenticated, authLoading]);
+
+  if (authLoading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
+    <Routes>
+      {/* Public routes */}
+      <Route path="/" element={<HomePage cart={cart} loadCart={loadCart} />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+
+      {/* Protected routes */}
+      <Route path="/checkout" element={
+        <ProtectedRoute>
+          <CheckoutPage cart={cart} loadCart={loadCart} />
+        </ProtectedRoute>
+      } />
+      <Route path="/orders" element={
+        <ProtectedRoute>
+          <OrdersPage cart={cart} loadCart={loadCart} />
+        </ProtectedRoute>
+      } />
+      <Route path="/tracking/:orderId/:productId" element={
+        <ProtectedRoute>
+          <TrackingPage cart={cart} />
+        </ProtectedRoute>
+      } />
+
+      {/* 404 route */}
+      <Route path="*" element={<NotFoundPage cart={cart} />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
     <AuthProvider>
-      <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<HomePage cart={cart} loadCart={loadCart} />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-
-        {/* Protected routes */}
-        <Route path="/checkout" element={
-          <ProtectedRoute>
-            <CheckoutPage cart={cart} loadCart={loadCart} />
-          </ProtectedRoute>
-        } />
-        <Route path="/orders" element={
-          <ProtectedRoute>
-            <OrdersPage cart={cart} loadCart={loadCart} />
-          </ProtectedRoute>
-        } />
-        <Route path="/tracking/:orderId/:productId" element={
-          <ProtectedRoute>
-            <TrackingPage cart={cart} />
-          </ProtectedRoute>
-        } />
-
-        {/* 404 route */}
-        <Route path="*" element={<NotFoundPage cart={cart} />} />
-      </Routes>
+      <AppContent />
     </AuthProvider>
   );
 }

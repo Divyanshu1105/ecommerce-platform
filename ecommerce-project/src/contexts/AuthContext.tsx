@@ -37,7 +37,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 axios.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('access_token');
-        if (token) {
+
+        if (token && !config.url?.includes('/api/auth/')) {
             config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
@@ -51,11 +52,23 @@ axios.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        // Prevent infinite loop and don't refresh for auth endpoints
+        if (error.response?.status === 401 &&
+            !originalRequest._retry &&
+            !originalRequest.url?.includes('/api/auth/')) {
+
             originalRequest._retry = true;
 
             try {
                 const refreshToken = localStorage.getItem('refresh_token');
+
+                // If no refresh token, just reject
+                if (!refreshToken) {
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('refresh_token');
+                    return Promise.reject(error);
+                }
+
                 const response = await axios.post('/api/auth/refresh/', {
                     refresh: refreshToken
                 });
@@ -68,7 +81,12 @@ axios.interceptors.response.use(
                 // Refresh failed - logout user
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
-                window.location.href = '/login';
+
+                // Only redirect to login if not already there
+                if (!window.location.pathname.includes('/login')) {
+                    window.location.href = '/login';
+                }
+
                 return Promise.reject(refreshError);
             }
         }
