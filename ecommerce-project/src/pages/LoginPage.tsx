@@ -1,12 +1,12 @@
-// ecommerce-project/src/pages/LoginPage.tsx
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router';
+import { useNavigate, useLocation, Link } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
 import { PageMeta } from '../components/PageMeta';
 import './AuthPages.css';
 
 export function LoginPage() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { login } = useAuth();
     const [formData, setFormData] = useState({
         username: '',
@@ -15,6 +15,9 @@ export function LoginPage() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    // Get the page they tried to visit before being redirected to login
+    const from = location.state?.from?.pathname || '/';
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
@@ -22,7 +25,8 @@ export function LoginPage() {
 
         try {
             await login(formData.username, formData.password);
-            navigate('/');
+            // Redirect to the page they tried to visit, or home
+            navigate(from, { replace: true });
         } catch (err) {
             setError('Invalid username or password');
         } finally {
