@@ -1,6 +1,5 @@
-// ecommerce-project/src/App.tsx
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Routes, Route } from 'react-router';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -11,6 +10,7 @@ import { TrackingPage } from './pages/TrackingPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { ProfilePage } from './pages/ProfilePage';
 import './App.css';
 
 // Create a separate component that uses auth
@@ -18,7 +18,7 @@ function AppContent() {
   const [cart, setCart] = useState([]);
   const { isAuthenticated, loading: authLoading } = useAuth();
 
-  const loadCart = async () => {
+  const loadCart = useCallback(async () => {
     if (!isAuthenticated) {
       setCart([]);
       return;
@@ -31,13 +31,13 @@ function AppContent() {
       console.error('Error loading cart:', error);
       setCart([]);
     }
-  };
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (!authLoading) {
       loadCart();
     }
-  }, [isAuthenticated, authLoading]);
+  }, [authLoading, loadCart]);
 
   if (authLoading) {
     return (
@@ -74,7 +74,15 @@ function AppContent() {
 
       {/* 404 route */}
       <Route path="*" element={<NotFoundPage cart={cart} />} />
+
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <ProfilePage cart={cart} />
+        </ProtectedRoute>
+      } />
     </Routes>
+
+
   );
 }
 
