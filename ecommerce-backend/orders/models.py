@@ -1,10 +1,19 @@
 # ecommerce-backend/orders/models.py
 from django.db import models
+from django.contrib.auth.models import User
 import uuid
 from products.models import Product
 
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    user = models.ForeignKey(
+        User, 
+        on_delete= models.CASCADE,
+        related_name='orders',
+        null=True,
+        blank=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     total_cost_cents = models.IntegerField(default=0)
     
