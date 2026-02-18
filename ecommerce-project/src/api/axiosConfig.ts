@@ -1,42 +1,67 @@
-import axios from 'axios';
+import axios from "axios";
 
-// Request interceptor
-axios.interceptors.request.use(
+const api = axios.create({
+    baseURL: "/",
+});
+
+
+// ------------------
+// Request Interceptor
+// ------------------
+api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('access_token');
-        if (token) {
+        const token = localStorage.getItem("access_token");
+
+        if (token && !config.url?.includes("/api/auth/")) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+
         return config;
     },
     (error) => Promise.reject(error)
 );
 
-// Response interceptor
-axios.interceptors.response.use(
+
+// ------------------
+// Response Interceptor
+// ------------------
+api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        // Prevent loop
+        if (
+            error.response?.status === 401 &&
+            !originalRequest._retry &&
+            !originalRequest.url?.includes("/api/auth/")
+        ) {
             originalRequest._retry = true;
 
+            const refreshToken = localStorage.getItem("refresh_token");
+
+            // No refresh token
+            if (!refreshToken) {
+                localStorage.clear();
+                window.location.href = "/login";
+                return Promise.reject(error);
+            }
+
             try {
-                const refreshToken = localStorage.getItem('refresh_token');
-                const response = await axios.post('/api/auth/refresh/', {
-                    refresh: refreshToken
+                const response = await api.post("/api/auth/refresh/", {
+                    refresh: refreshToken,
                 });
 
-                localStorage.setItem('access_token', response.data.access);
+                localStorage.setItem("access_token", response.data.access);
+
                 originalRequest.headers.Authorization =
                     `Bearer ${response.data.access}`;
 
-                return axios(originalRequest);
-            } catch (_) {
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-                window.location.href = '/login';
-                return Promise.reject(_);
+                return api(originalRequest);
+            } catch (refreshError) {
+                localStorage.clear();
+                window.location.href = "/login";
+                return Promise.reject(refreshError);
             }
         }
 
@@ -44,4 +69,4 @@ axios.interceptors.response.use(
     }
 );
 
-export default axios;
+export default api;
