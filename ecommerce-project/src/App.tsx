@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState, useCallback } from 'react';
-import { Routes, Route } from 'react-router';
+import { Routes, Route, useLocation } from 'react-router';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { HomePage } from './pages/home/HomePage';
@@ -9,14 +9,19 @@ import { OrdersPage } from './pages/orders/OrdersPage';
 import { TrackingPage } from './pages/TrackingPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
+import { FullFooter } from './components/footer/FullFooter';
+import { MinimalFooter } from './components/footer/MinimalFooter';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ProfilePage } from './pages/ProfilePage';
 import './App.css';
 
 // Create a separate component that uses auth
 function AppContent() {
+  const location = useLocation();
   const [cart, setCart] = useState([]);
   const { isAuthenticated, loading: authLoading } = useAuth();
+
+  const isCheckout = location.pathname === '/checkout';
 
   const loadCart = useCallback(async () => {
     if (!isAuthenticated) {
@@ -48,41 +53,46 @@ function AppContent() {
     );
   }
 
+
   return (
-    <Routes>
-      {/* Public routes */}
-      <Route path="/" element={<HomePage cart={cart} loadCart={loadCart} />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+    <>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={<HomePage cart={cart} loadCart={loadCart} />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
-      {/* Protected routes */}
-      <Route path="/checkout" element={
-        <ProtectedRoute>
-          <CheckoutPage cart={cart} loadCart={loadCart} />
-        </ProtectedRoute>
-      } />
-      <Route path="/orders" element={
-        <ProtectedRoute>
-          <OrdersPage cart={cart} loadCart={loadCart} />
-        </ProtectedRoute>
-      } />
-      <Route path="/tracking/:orderId/:productId" element={
-        <ProtectedRoute>
-          <TrackingPage cart={cart} />
-        </ProtectedRoute>
-      } />
+        {/* Protected routes */}
+        <Route path="/checkout" element={
+          <ProtectedRoute>
+            <CheckoutPage cart={cart} loadCart={loadCart} />
+          </ProtectedRoute>
+        } />
+        <Route path="/orders" element={
+          <ProtectedRoute>
+            <OrdersPage cart={cart} loadCart={loadCart} />
+          </ProtectedRoute>
+        } />
+        <Route path="/tracking/:orderId/:productId" element={
+          <ProtectedRoute>
+            <TrackingPage cart={cart} />
+          </ProtectedRoute>
+        } />
 
-      {/* 404 route */}
-      <Route path="*" element={<NotFoundPage cart={cart} />} />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <ProfilePage cart={cart} />
+          </ProtectedRoute>
+        } />
 
-      <Route path="/profile" element={
-        <ProtectedRoute>
-          <ProfilePage cart={cart} />
-        </ProtectedRoute>
-      } />
-    </Routes>
+        {/* 404 route */}
+        <Route path="*" element={<NotFoundPage cart={cart} />} />
 
+      </Routes>
 
+      {/* Footer - conditionally render based on route */}
+      {isCheckout ? <MinimalFooter /> : <FullFooter />}
+    </>
   );
 }
 
