@@ -33,81 +33,30 @@ interface RegisterData {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Setup axios interceptor for JWT
-axios.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem('access_token');
-
-        if (token && !config.url?.includes('/api/auth/')) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => Promise.reject(error)
-);
-
-// Response interceptor for token refresh
-axios.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-        const originalRequest = error.config;
-
-        // Prevent infinite loop and don't refresh for auth endpoints
-        if (error.response?.status === 401 &&
-            !originalRequest._retry &&
-            !originalRequest.url?.includes('/api/auth/')) {
-
-            originalRequest._retry = true;
-
-            try {
-                const refreshToken = localStorage.getItem('refresh_token');
-
-                // If no refresh token, just reject
-                if (!refreshToken) {
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('refresh_token');
-                    return Promise.reject(error);
-                }
-
-                const response = await axios.post('/api/auth/refresh/', {
-                    refresh: refreshToken
-                });
-
-                localStorage.setItem('access_token', response.data.access);
-                originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
-
-                return axios(originalRequest);
-            } catch (refreshError) {
-                // Refresh failed - logout user
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-
-                // Only redirect to login if not already there
-                if (!window.location.pathname.includes('/login')) {
-                    window.location.href = '/login';
-                }
-
-                return Promise.reject(refreshError);
-            }
-        }
-
-        return Promise.reject(error);
-    }
-);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check if user is logged in on mount
-        const token = localStorage.getItem('access_token');
-        if (token) {
-            fetchUser();
-        } else {
-            setLoading(false);
-        }
+        const initAuth = async () => {
+            const token = localStorage.getItem('access_token');
+
+            if (!token) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                await fetchUser();
+            } catch {
+                localStorage.clear();
+            }
+        };
+
+        initAuth();
     }, []);
+
 
     const fetchUser = async () => {
         try {
@@ -161,14 +110,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const logout = async () => {
         try {
             const refreshToken = localStorage.getItem('refresh_token');
-            await axios.post('/api/auth/logout/', {
-                refresh_token: refreshToken
-            });
+
+            if (refreshToken) {
+                await axios.post('/api/auth/logout/', {
+                    refresh_token: refreshToken
+                });
+            }
         } catch (error) {
             console.error('Logout error:', error);
         } finally {
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('refresh_token');
+            localStorage.clear();
             setUser(null);
         }
     };
