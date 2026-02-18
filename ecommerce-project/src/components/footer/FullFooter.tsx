@@ -1,4 +1,8 @@
 import { Link } from 'react-router';
+import YoutubeLogo from '../../assets/contacts-logo/YouTubeLogo.png';
+import FacebookLogo from '../../assets/contacts-logo/FacebookLogo.png';
+import TwitterLogo from '../../assets/contacts-logo/TwitterLogo.png';
+import InstagramLogo from '../../assets/contacts-logo/InstagramLogo.png';
 import './Footer.css';
 
 export function FullFooter() {
@@ -48,10 +52,10 @@ export function FullFooter() {
                     <div className="footer-col">
                         <h3 className="footer-title">Connect</h3>
                         <div className="social-links">
-                            <a href="#" className="social-link">📘 Facebook</a>
-                            <a href="#" className="social-link">🐦 Twitter</a>
-                            <a href="#" className="social-link">📷 Instagram</a>
-                            <a href="#" className="social-link">▶️ YouTube</a>
+                            <a href="#" className="social-link"><img className="contact-logo" src={FacebookLogo} alt="" /> Facebook</a>
+                            <a href="#" className="social-link"><img className="contact-logo" src={TwitterLogo} alt="" /> Twitter</a>
+                            <a href="#" className="social-link"><img className="contact-logo" src={InstagramLogo} alt="" /> Instagram</a>
+                            <a href="#" className="social-link"><img className="contact-logo" src={YoutubeLogo} alt="" /> YouTube</a>
                         </div>
                     </div>
                 </div>

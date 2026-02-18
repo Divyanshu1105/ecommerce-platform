@@ -1,7 +1,7 @@
 .checkout-header {
   height: 60px;
   padding-left: 30px;
-  padding-right: 30px;
+  padding-right: 60px;
   background-color: white;
 
   display: flex;
@@ -27,7 +27,8 @@
 }
 
 .checkout-header .logo {
-  height: 26px;
+  height: 50px;
+  width: 50px;
   margin-top: 0px;
 }
 
