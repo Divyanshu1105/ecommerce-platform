@@ -56,7 +56,12 @@ INSTALLED_APPS = [
     'orders',
     'delivery',
     'authentication',
+    'payment',
 ]
+
+# Stripe Settings
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
