@@ -3,7 +3,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router';
 import { AuthProvider } from './contexts/AuthContext';
-import axios from 'axios';
+import axios from './api/axiosConfig.ts';
 import './index.css'
 import App from './App.tsx'
 

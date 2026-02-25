@@ -4,6 +4,7 @@ const api = axios.create({
     baseURL: "/",
 });
 
+const publicRoutes = ['/api/auth/login/', '/api/auth/register/'];
 
 // ------------------
 // Request Interceptor
@@ -12,7 +13,7 @@ api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("access_token");
 
-        if (token && !config.url?.includes("/api/auth/")) {
+        if (token && !publicRoutes.some(route => config.url?.includes(route))) {
             config.headers.Authorization = `Bearer ${token}`;
         }
 
@@ -30,17 +31,15 @@ api.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
-        // Prevent loop
         if (
             error.response?.status === 401 &&
             !originalRequest._retry &&
-            !originalRequest.url?.includes("/api/auth/")
+            !originalRequest.url?.includes("/api/auth/refresh/")
         ) {
             originalRequest._retry = true;
 
             const refreshToken = localStorage.getItem("refresh_token");
 
-            // No refresh token
             if (!refreshToken) {
                 localStorage.clear();
                 window.location.href = "/login";
@@ -53,9 +52,7 @@ api.interceptors.response.use(
                 });
 
                 localStorage.setItem("access_token", response.data.access);
-
-                originalRequest.headers.Authorization =
-                    `Bearer ${response.data.access}`;
+                originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
 
                 return api(originalRequest);
             } catch (refreshError) {

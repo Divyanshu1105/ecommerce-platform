@@ -1,0 +1,39 @@
+.payment-form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.payment-error {
+    background: #fee;
+    color: #c33;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 16px 0;
+    font-size: 14px;
+}
+
+.payment-button {
+    width: 100%;
+    padding: 16px;
+    background: #0e6b3e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.2s;
+}
+
+.payment-button:hover:not(:disabled) {
+    background: #0a4d2e;
+}
+
+.payment-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}

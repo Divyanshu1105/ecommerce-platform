@@ -1,7 +1,7 @@
 import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'; //test like clicking button works
-import axios from 'axios';
+import axios from '../../api/axiosConfig';
 import { Product } from './Product';
 
 vi.mock('axios');

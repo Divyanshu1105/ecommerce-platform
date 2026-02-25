@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../api/axiosConfig';
 import { useState, useEffect } from 'react';
 import { Header } from '../../components/Header';
 import { PageMeta } from '../../components/PageMeta';

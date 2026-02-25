@@ -1,5 +1,5 @@
 import { formatMoney } from "../../utils/money";
-import axios from "axios";
+import axios from '../../api/axiosConfig';
 import dayjs from "dayjs";
 
 export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {

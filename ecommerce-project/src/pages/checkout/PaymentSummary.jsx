@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from '../../api/axiosConfig';
 import { useNavigate } from "react-router";
 import { PaymentForm } from "../../components/PaymentForm";
 import { formatMoney } from "../../utils/money";

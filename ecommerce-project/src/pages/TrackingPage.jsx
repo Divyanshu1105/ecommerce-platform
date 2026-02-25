@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../api/axiosConfig';
 import dayjs from 'dayjs';
 import { Link, useParams } from 'react-router';
 import { useEffect, useState } from 'react';

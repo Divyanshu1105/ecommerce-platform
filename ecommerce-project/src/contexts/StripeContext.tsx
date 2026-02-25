@@ -1,4 +1,3 @@
-// ecommerce-project/src/contexts/StripeContext.tsx
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 

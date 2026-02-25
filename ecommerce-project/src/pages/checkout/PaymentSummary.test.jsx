@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter, useLocation } from 'react-router';
 import userEvent from '@testing-library/user-event';
 import { PaymentSummary } from './PaymentSummary';
-import axios from 'axios';
+import axios from '../../api/axiosConfig';
 
 vi.mock('axios');
 

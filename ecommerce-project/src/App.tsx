@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './api/axiosConfig';
 import { useEffect, useState, useCallback } from 'react';
 import { Routes, Route, useLocation } from 'react-router';
 import { AuthProvider, useAuth } from './contexts/AuthContext';

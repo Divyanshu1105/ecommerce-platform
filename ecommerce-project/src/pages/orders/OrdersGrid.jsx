@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import axios from 'axios';
+import axios from '../../api/axiosConfig';
 import { Fragment, useState } from 'react'; // Add useState
 import { formatMoney } from '../../utils/money';
 import BuyAgainIcon from '../../assets/images/icons/buy-again.png';

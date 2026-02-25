@@ -1,4 +1,3 @@
-// ecommerce-project/src/pages/RegisterPage.tsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';

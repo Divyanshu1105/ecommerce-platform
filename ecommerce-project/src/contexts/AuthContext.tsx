@@ -51,6 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 await fetchUser();
             } catch {
                 localStorage.clear();
+                setLoading(false);
             }
         };
 
@@ -118,6 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             }
         } catch (error) {
             console.error('Logout error:', error);
+            throw error;
         } finally {
             localStorage.clear();
             setUser(null);

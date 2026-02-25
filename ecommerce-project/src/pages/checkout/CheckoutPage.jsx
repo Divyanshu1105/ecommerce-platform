@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../api/axiosConfig';
 import { useEffect, useState } from 'react';
 import { CheckoutHeader } from './CheckoutHeader';
 import { OrderSummary } from './OrderSummary';
