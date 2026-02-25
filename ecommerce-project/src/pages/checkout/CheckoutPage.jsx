@@ -1,10 +1,14 @@
 import axios from '../../api/axiosConfig';
 import { useEffect, useState } from 'react';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { CheckoutHeader } from './CheckoutHeader';
 import { OrderSummary } from './OrderSummary';
 import { PaymentSummary } from './PaymentSummary';
 import { PageMeta } from '../../components/PageMeta';
 import './CheckoutPage.css';
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export function CheckoutPage({ cart, loadCart }) {
     const [deliveryOptions, setDeliveryOptions] = useState([]);
@@ -34,10 +38,12 @@ export function CheckoutPage({ cart, loadCart }) {
                         cart={cart}
                         loadCart={loadCart}
                     />
-                    <PaymentSummary
-                        paymentSummary={paymentSummary}
-                        loadCart={loadCart}
-                    />
+                    <Elements stripe={stripePromise}>
+                        <PaymentSummary
+                            paymentSummary={paymentSummary}
+                            loadCart={loadCart}
+                        />
+                    </Elements>
                 </div>
             </div>
         </>
