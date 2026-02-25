@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "/",
+    baseURL: 'http://localhost:8000/api/',
 });
 
 const publicRoutes = ['/api/auth/login/', '/api/auth/register/'];

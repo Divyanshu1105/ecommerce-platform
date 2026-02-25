@@ -13,18 +13,33 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 export function CheckoutPage({ cart, loadCart }) {
     const [deliveryOptions, setDeliveryOptions] = useState([]);
     const [paymentSummary, setPaymentSummary] = useState(null);
+    const [clientSecret, setClientSecret] = useState(null);
 
     useEffect(() => {
         const fetchCheckoutData = async () => {
             const deliveryResponse = await axios.get('/api/delivery-options/');
-            setDeliveryOptions(deliveryResponse.data);
-
             const paymentResponse = await axios.get('/api/cart-items/payment_summary/');
+
+            // ADD: Fetch clientSecret
+            try {
+                const intentResponse = await axios.post('/api/payment/create-payment-intent/', {}, {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                setClientSecret(intentResponse.data.clientSecret);
+            } catch (error) {
+                console.error('Failed to create PaymentIntent:', error);
+            }
+
+            setDeliveryOptions(deliveryResponse.data);
             setPaymentSummary(paymentResponse.data);
         };
 
         fetchCheckoutData();
     }, [cart]);
+
+    if (!clientSecret) {
+        return <div>Loading payment...</div>;
+    }
 
     return (
         <>
@@ -38,7 +53,7 @@ export function CheckoutPage({ cart, loadCart }) {
                         cart={cart}
                         loadCart={loadCart}
                     />
-                    <Elements stripe={stripePromise}>
+                    <Elements stripe={stripePromise} options={{ clientSecret }}>
                         <PaymentSummary
                             paymentSummary={paymentSummary}
                             loadCart={loadCart}

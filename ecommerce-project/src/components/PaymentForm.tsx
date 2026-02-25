@@ -30,11 +30,9 @@ export function PaymentForm({ amount, onSuccess }: PaymentFormProps) {
         setPaymentError(null);
 
         try {
-            const { data: intentData } = await axios.post('/api/create-payment-intent/');
 
             const { error: confirmError, paymentIntent } = await stripe.confirmPayment({
                 elements,
-                clientSecret: intentData.clientSecret,
                 confirmParams: {
                     return_url: `${window.location.origin}/order-confirmation`,
                 },
@@ -48,7 +46,7 @@ export function PaymentForm({ amount, onSuccess }: PaymentFormProps) {
             }
 
             if (paymentIntent && paymentIntent.status === 'succeeded') {
-                await axios.post('/api/confirm-order/', {
+                await axios.post('/api/payment/confirm-order/', {
                     payment_intent_id: paymentIntent.id
                 });
 

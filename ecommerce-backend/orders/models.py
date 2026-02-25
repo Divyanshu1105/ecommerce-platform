@@ -1,4 +1,3 @@
-# ecommerce-backend/orders/models.py
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
@@ -16,12 +15,6 @@ class Order(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     total_cost_cents = models.IntegerField(default=0)
-    
-    def __str__(self):
-        return f"Order {self.id}"
-    
-    class Meta:
-        ordering = ['-created_at']
 
     PAYMENT_STATUS_CHOICES = [
         ('pending', 'Pending'),
@@ -32,8 +25,25 @@ class Order(models.Model):
     ]
 
     payment_status = models.CharField(
-        
+        max_length=20, 
+        choices=PAYMENT_STATUS_CHOICES,  
+        default='pending'  
     )
+
+    payment_intent_id = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True
+    )
+    
+    def __str__(self):
+        return f"Order {self.id}"
+    
+    class Meta:
+        ordering = ['-created_at']
+
+    
+
 
 class OrderItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
