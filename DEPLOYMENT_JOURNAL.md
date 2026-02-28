@@ -20,8 +20,31 @@ WHAT: Creating requirements.txt with all dependencies
 WHY: Render needs to know which Python packages to install
 
 COMMAND RUN:
-    pip freeze > requirements.txt
+pip freeze > requirements.txt
 
 WHAT COULD BREAK:
-    - Missing packages → ImportError on server
-    - Wrong versions → Compatibility issues
+- Missing packages → ImportError on server
+- Wrong versions → Compatibility issues
+
+
+### Update Frontend for Production
+WHAT: Preparing React frontend for production
+WHY: Frontend needs to know production API URL, not localhost
+
+FILES CHANGED:
+- ecommerce-frontend/.env (add production variable)
+- ecommerce-frontend/src/services/api.ts (will auto-use env var)
+
+
+### Test Build Locally
+WHAT: Testing production build locally
+WHY: Catch errors before deploying
+
+COMMAND RUN:
+cd ecommerce-frontend
+npm run build
+
+WHAT COULD BREAK:
+- TypeScript errors
+- Missing dependencies
+- Environment variable issues
