@@ -13,3 +13,15 @@ WHAT COULD BREAK:
 - If ALLOWED_HOSTS is wrong, Django returns "Bad Request (400)"
 - If database settings wrong, app won't connect
 - Missing environment variables will crash the app
+
+
+### Create Production Requirements File
+WHAT: Creating requirements.txt with all dependencies
+WHY: Render needs to know which Python packages to install
+
+COMMAND RUN:
+    pip freeze > requirements.txt
+
+WHAT COULD BREAK:
+    - Missing packages → ImportError on server
+    - Wrong versions → Compatibility issues
