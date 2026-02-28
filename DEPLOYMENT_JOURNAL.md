@@ -88,6 +88,7 @@ Download from: https://www.postgresql.org/download/windows/
 - Port 5432 already in use
 - Service fails to start
 
+---
 
 ## 2.2: Create Local PostgreSQL Database
 **WHAT**: Creating a new PostgreSQL database for testing
@@ -108,3 +109,75 @@ GRANT ALL PRIVILEGES ON DATABASE ecommerce_db TO ecommerce_user;
 - User already exists
 - Password complexity requirements
 - Permission denied
+
+---
+
+## 2.3: Test PostgreSQL Connection
+**WHAT**: Testing connection to PostgreSQL
+**WHY**: Ensure Django can connect before migrating data
+
+**COMMAND RUN**:
+python manage.py dbshell
+
+**WHAT COULD BREAK**:
+- Connection refused (PostgreSQL not running)
+- Authentication failed (wrong password)
+- Database doesn't exist
+
+---
+
+## 2.4: Create Migrations for New Database
+**WHAT**: Running migrations on PostgreSQL
+**WHY**: Creates the database schema
+
+**COMMANDS RUN****:
+python manage.py makemigrations
+python manage.py migrate
+
+**SUCCESS**: All tables created in PostgreSQL
+Tables created: auth_user, products_product, cart_cartitem, orders_order, etc.
+
+---
+
+##  2.5: Export Data from SQLite
+**WHAT**: Exporting existing data from SQLite to JSON
+**WHY**: Need to transfer users, products, orders to new database
+
+**COMMAND RUN**:
+python manage.py dumpdata > datadump.json
+
+**FILES CREATED**:
+- datadump.json (contains all database records)
+
+**WHAT COULD BREAK**:
+- Large export might timeout (unlikely with small data)
+- Unicode/encoding issues
+
+---
+
+## 2.6: Import Data to PostgreSQL
+**WHAT**: Importing data into PostgreSQL
+**WHY**: Populate new database with existing records
+
+**COMMAND RUN**:
+python manage.py loaddata datadump.json
+
+⚠️**WHAT COULD BREAK**:
+- Foreign key constraint violations (if tables empty)
+- Duplicate primary keys
+- Content type issues
+
+🔧**WHAT I FIXED (Learned)**:
+- Schema permissions → Always grant public schema access
+- Windows encoding → Use -o flag, never >
+- Service names → PostgreSQL uses postgresql-x64-18
+- User prompts → => = normal user (good), # = superuser
+
+---
+
+## 2.7: Verify Data Migration
+**WHAT**: Verifying data was transferred correctly
+**WHY**: Ensure no data loss
+
+**COMMANDS RUN**:
+python manage.py shell

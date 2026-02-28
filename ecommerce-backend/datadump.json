@@ -1,0 +1,1757 @@
+[
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "products",
+    "model": "product"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "cart",
+    "model": "cartitem"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "orders",
+    "model": "order"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "orders",
+    "model": "orderitem"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "delivery",
+    "model": "deliveryoptions"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "uebcd7q5yzru3dkc3plwl7wda4li04su",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSFQHgMu3fsNZBhAqgaS0q6M_65NutDtPefcFwu4rTVsIy9hTuzMJDv9bhHpkdsO0h3brXPqbV3myHeFH3Twa0_5eTncv4OKo35rT0IBAmTpNWBUjjwagKImbSbK0UvQYIsH7cBK4aIuoIqjbKwRpC17fwDDCzbd:1vlPDg:xJhKWhB58nmXS7pn583DGH8_5FwO3kdlc_QC89yauGQ",
+    "expire_date": "2026-02-12T10:25:48.176Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
+  "fields": {
+    "image": "images/products/blackout-curtains-set-teal.jpg",
+    "name": "Blackout Curtains Set 42 x 84-Inch - Teal",
+    "rating_stars": "4.5",
+    "rating_count": 363,
+    "price_cents": 3099,
+    "keywords": [
+      "bedroom",
+      "home",
+      "curtains"
+    ],
+    "created_at": "2026-02-10T14:06:27.739Z",
+    "updated_at": "2026-02-10T14:06:27.739Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "04701903-bc79-49c6-bc11-1af7e3651358",
+  "fields": {
+    "image": "images/products/men-brown-flat-sneakers.jpg",
+    "name": "Men's Brown Flat Sneakers",
+    "rating_stars": "4.5",
+    "rating_count": 562,
+    "price_cents": 2499,
+    "keywords": [
+      "footwear",
+      "men",
+      "sneakers"
+    ],
+    "created_at": "2026-02-10T14:06:27.474Z",
+    "updated_at": "2026-02-10T14:06:27.474Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "069d3841-66de-425e-82c7-73b663c3cda4",
+  "fields": {
+    "image": "images/products/desk-lamp-led.jpg",
+    "name": "LED Desk Lamp changed again",
+    "rating_stars": "0.0",
+    "rating_count": 0,
+    "price_cents": 2300,
+    "keywords": [
+      "home",
+      "lighting",
+      "electronics"
+    ],
+    "created_at": "2026-01-31T10:16:15.637Z",
+    "updated_at": "2026-01-31T10:16:15.637Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "0d7f9afa-2efe-4fd9-b0fd-ba5663e0a524",
+  "fields": {
+    "image": "images/products/black-and-silver-espresso-maker.jpg",
+    "name": "Black and Silver Espresso Maker",
+    "rating_stars": "4.5",
+    "rating_count": 1211,
+    "price_cents": 8250,
+    "keywords": [
+      "espresso makers",
+      "kitchen",
+      "appliances"
+    ],
+    "created_at": "2026-02-10T14:06:27.712Z",
+    "updated_at": "2026-02-10T14:06:27.712Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "10ed8504-57db-433c-b0a3-fc71a35c88a1",
+  "fields": {
+    "image": "images/products/athletic-skateboard-shoes-gray.jpg",
+    "name": "Athletic Skateboard Shoes - Gray",
+    "rating_stars": "4.0",
+    "rating_count": 89,
+    "price_cents": 3390,
+    "keywords": [
+      "shoes",
+      "running shoes",
+      "footwear"
+    ],
+    "created_at": "2026-02-10T14:06:27.804Z",
+    "updated_at": "2026-02-10T14:06:27.804Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+  "fields": {
+    "image": "images/products/intermediate-composite-basketball.jpg",
+    "name": "Intermediate Size Basketball",
+    "rating_stars": "4.0",
+    "rating_count": 127,
+    "price_cents": 2095,
+    "keywords": [
+      "sports",
+      "basketballs"
+    ],
+    "created_at": "2026-02-10T14:06:26.360Z",
+    "updated_at": "2026-02-10T14:06:26.360Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "19c6a64a-5463-4d45-9af8-e41140a4100c",
+  "fields": {
+    "image": "images/products/duvet-cover-set-gray-queen.jpg",
+    "name": "Duvet Cover Set, Diamond Pattern",
+    "rating_stars": "4.0",
+    "rating_count": 456,
+    "price_cents": 4399,
+    "keywords": [
+      "bedroom",
+      "bed sheets",
+      "sheets",
+      "covers",
+      "home"
+    ],
+    "created_at": "2026-02-10T14:06:27.251Z",
+    "updated_at": "2026-02-10T14:06:27.251Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "1c079479-8586-494f-ab53-219325432536",
+  "fields": {
+    "image": "images/products/men-athletic-shoes-white.jpg",
+    "name": "Men's Athletic Sneaker - White",
+    "rating_stars": "4.0",
+    "rating_count": 229,
+    "price_cents": 4590,
+    "keywords": [
+      "shoes",
+      "running shoes",
+      "footwear",
+      "mens"
+    ],
+    "created_at": "2026-02-10T14:06:26.963Z",
+    "updated_at": "2026-02-10T14:06:26.963Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "2b02566e-cb4a-469c-bf93-d9cef4af7380",
+  "fields": {
+    "image": "images/products/athletic-skateboard-shoes-gray.jpg",
+    "name": "Athletic Skateboard Shoes - Gray",
+    "rating_stars": "4.0",
+    "rating_count": 89,
+    "price_cents": 3390,
+    "keywords": [
+      "shoes",
+      "running shoes",
+      "footwear"
+    ],
+    "created_at": "2026-01-31T09:46:59.238Z",
+    "updated_at": "2026-01-31T10:08:27.057Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "36c64692-677f-4f58-b5ec-0dc2cf109e27",
+  "fields": {
+    "image": "images/products/artistic-bowl-set-6-piece.jpg",
+    "name": "Artistic Bowl and Plate Set - 6 Pieces",
+    "rating_stars": "5.0",
+    "rating_count": 679,
+    "price_cents": 3899,
+    "keywords": [
+      "bowls set",
+      "kitchen"
+    ],
+    "created_at": "2026-02-10T14:06:27.911Z",
+    "updated_at": "2026-02-10T14:06:27.911Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "3ebe75dc-64d2-4137-8860-1f5a963e534b",
+  "fields": {
+    "image": "images/products/elegant-white-dinner-plate-set.jpg",
+    "name": "2 Piece White Dinner Plate Set",
+    "rating_stars": "4.0",
+    "rating_count": 37,
+    "price_cents": 2067,
+    "keywords": [
+      "plates",
+      "kitchen",
+      "dining"
+    ],
+    "created_at": "2026-02-10T14:06:26.476Z",
+    "updated_at": "2026-02-10T14:06:26.476Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "3fdfe8d6-9a15-4979-b459-585b0d0545b9",
+  "fields": {
+    "image": "images/products/laundry-detergent-tabs.jpg",
+    "name": "Laundry Detector Tabs, 50 Loads",
+    "rating_stars": "4.5",
+    "rating_count": 305,
+    "price_cents": 2899,
+    "keywords": [
+      "bathroom",
+      "cleaning"
+    ],
+    "created_at": "2026-02-10T14:06:27.146Z",
+    "updated_at": "2026-02-10T14:06:27.146Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "4df68c27-fd59-4a6a-bbd1-e754ddb6d53c",
+  "fields": {
+    "image": "images/products/men-navigator-sunglasses-black.jpg",
+    "name": "Men's Navigator Sunglasses",
+    "rating_stars": "3.5",
+    "rating_count": 42,
+    "price_cents": 3690,
+    "keywords": [
+      "sunglasses",
+      "glasses",
+      "accessories",
+      "shades"
+    ],
+    "created_at": "2026-02-10T14:06:27.451Z",
+    "updated_at": "2026-02-10T14:06:27.452Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "4e37dd03-3b23-4bc6-9ff8-44e112a92c64",
+  "fields": {
+    "image": "images/products/non-stick-cooking-set-4-pieces.jpg",
+    "name": "Non-Stick Cook Set With Lids - 4 Pieces",
+    "rating_stars": "4.5",
+    "rating_count": 511,
+    "price_cents": 6797,
+    "keywords": [
+      "cooking set",
+      "kitchen"
+    ],
+    "created_at": "2026-02-10T14:06:27.515Z",
+    "updated_at": "2026-02-10T14:06:27.515Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "4f4fbcc2-4e72-45cc-935c-9e13d79cc57f",
+  "fields": {
+    "image": "images/products/women-knit-ballet-flat-white.jpg",
+    "name": "Women's Ballet Flat - White",
+    "rating_stars": "4.0",
+    "rating_count": 326,
+    "price_cents": 2640,
+    "keywords": [
+      "shoes",
+      "flats",
+      "womens",
+      "footwear"
+    ],
+    "created_at": "2026-02-10T14:06:27.085Z",
+    "updated_at": "2026-02-10T14:06:27.085Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "54e0eccd-8f36-462b-b68a-8182611d9add",
+  "fields": {
+    "image": "images/products/2-slot-toaster-white.jpg",
+    "name": "2 Slot Toaster - White",
+    "rating_stars": "5.0",
+    "rating_count": 2197,
+    "price_cents": 1899,
+    "keywords": [
+      "toaster",
+      "kitchen",
+      "appliances"
+    ],
+    "created_at": "2026-02-10T14:06:26.460Z",
+    "updated_at": "2026-02-10T14:06:26.460Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "58b4fc92-e98c-42aa-8c55-b6b79996769a",
+  "fields": {
+    "image": "images/products/knit-athletic-sneakers-gray.jpg",
+    "name": "Waterproof Knit Athletic Sneakers - Gray",
+    "rating_stars": "4.0",
+    "rating_count": 89,
+    "price_cents": 5390,
+    "keywords": [
+      "shoes",
+      "running shoes",
+      "footwear"
+    ],
+    "created_at": "2026-02-10T14:06:26.894Z",
+    "updated_at": "2026-02-10T14:06:26.894Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "5968897c-4d27-4872-89f6-5bcb052746d7",
+  "fields": {
+    "image": "images/products/women-striped-beach-dress.jpg",
+    "name": "Women's Striped Beach Dress",
+    "rating_stars": "4.5",
+    "rating_count": 235,
+    "price_cents": 2970,
+    "keywords": [
+      "robe",
+      "swimsuit",
+      "swimming",
+      "bathing",
+      "apparel"
+    ],
+    "created_at": "2026-02-10T14:06:26.650Z",
+    "updated_at": "2026-02-10T14:06:26.651Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "59f7608a-2d71-4805-973c-6d00ae25b742",
+  "fields": {
+    "image": "images/products/women-straight-leg-jeans-black.jpg",
+    "name": "Women's Straight Leg Jeans - Black changed",
+    "rating_stars": "4.5",
+    "rating_count": 127,
+    "price_cents": 4500,
+    "keywords": [
+      "pants",
+      "jeans",
+      "women",
+      "clothing"
+    ],
+    "created_at": "2026-01-31T09:47:51.337Z",
+    "updated_at": "2026-01-31T10:08:27.039Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
+  "fields": {
+    "image": "images/products/facial-tissue-2-ply-8-boxes.jpg",
+    "name": "Ultra Soft Tissue 2-Ply - 8 Boxes",
+    "rating_stars": "4.0",
+    "rating_count": 99,
+    "price_cents": 2374,
+    "keywords": [
+      "kleenex",
+      "tissues",
+      "kitchen",
+      "napkins"
+    ],
+    "created_at": "2026-02-10T14:06:26.610Z",
+    "updated_at": "2026-02-10T14:06:26.610Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "77919bbe-0e56-475b-adde-4f24dfed3a04",
+  "fields": {
+    "image": "images/products/luxury-towel-set.jpg",
+    "name": "2 Piece Luxury Towel Set - White",
+    "rating_stars": "4.5",
+    "rating_count": 144,
+    "price_cents": 3599,
+    "keywords": [
+      "bathroom",
+      "washroom",
+      "restroom",
+      "towels",
+      "bath towels"
+    ],
+    "created_at": "2026-02-10T14:06:26.578Z",
+    "updated_at": "2026-02-10T14:06:26.578Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "77a845b1-16ed-4eac-bdf9-5b591882113d",
+  "fields": {
+    "image": "images/products/countertop-push-blender-black.jpg",
+    "name": "Countertop Push Blender - Black",
+    "rating_stars": "4.0",
+    "rating_count": 3,
+    "price_cents": 10747,
+    "keywords": [
+      "food blenders",
+      "kitchen",
+      "appliances"
+    ],
+    "created_at": "2026-02-10T14:06:27.851Z",
+    "updated_at": "2026-02-10T14:06:27.851Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "82bb68d7-ebc9-476a-989c-c78a40ee5cd9",
+  "fields": {
+    "image": "images/products/women-summer-jean-shorts.jpg",
+    "name": "Women's Summer Jean Shorts",
+    "rating_stars": "4.0",
+    "rating_count": 160,
+    "price_cents": 1699,
+    "keywords": [
+      "shorts",
+      "apparel",
+      "womens"
+    ],
+    "created_at": "2026-02-10T14:06:26.789Z",
+    "updated_at": "2026-02-10T14:06:26.789Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+  "fields": {
+    "image": "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+    "name": "Adults Plain Cotton T-Shirt - 2 Pack",
+    "rating_stars": "4.5",
+    "rating_count": 56,
+    "price_cents": 799,
+    "keywords": [
+      "tshirts",
+      "apparel",
+      "mens"
+    ],
+    "created_at": "2026-02-10T14:06:26.411Z",
+    "updated_at": "2026-02-10T14:06:26.411Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "8a53b080-6d40-4a65-ab26-b24ecf700bce",
+  "fields": {
+    "image": "images/products/bath-towel-set-gray-rosewood.jpg",
+    "name": "Bath Towels 2 Pack - Gray, Rosewood",
+    "rating_stars": "4.5",
+    "rating_count": 93,
+    "price_cents": 2990,
+    "keywords": [
+      "bathroom",
+      "home",
+      "towels"
+    ],
+    "created_at": "2026-02-10T14:06:27.783Z",
+    "updated_at": "2026-02-10T14:06:27.783Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "8b5a2ee1-6055-422a-a666-b34ba28b76d4",
+  "fields": {
+    "image": "images/products/men-golf-polo-t-shirt-gray.jpg",
+    "name": "Men's Golf Polo Shirt - Gray",
+    "rating_stars": "4.5",
+    "rating_count": 2556,
+    "price_cents": 1599,
+    "keywords": [
+      "tshirts",
+      "shirts",
+      "apparel",
+      "mens"
+    ],
+    "created_at": "2026-02-10T14:06:27.111Z",
+    "updated_at": "2026-02-10T14:06:27.111Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
+  "fields": {
+    "image": "images/products/3-piece-cooking-set.jpg",
+    "name": "3 Piece Non-Stick, Black Cooking Pot Set",
+    "rating_stars": "4.5",
+    "rating_count": 175,
+    "price_cents": 3499,
+    "keywords": [
+      "kitchen",
+      "cookware"
+    ],
+    "created_at": "2026-02-10T14:06:26.515Z",
+    "updated_at": "2026-02-10T14:06:26.515Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "901eb2ca-386d-432e-82f0-6fb1ee7bf969",
+  "fields": {
+    "image": "images/products/blackout-curtain-set-beige.jpg",
+    "name": "Blackout Curtains Set - Beige",
+    "rating_stars": "4.5",
+    "rating_count": 232,
+    "price_cents": 4599,
+    "keywords": [
+      "bedroom",
+      "curtains",
+      "home"
+    ],
+    "created_at": "2026-02-10T14:06:26.737Z",
+    "updated_at": "2026-02-10T14:06:26.737Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "a434b69f-1bc1-482d-9ce7-cd7f4a66ce8d",
+  "fields": {
+    "image": "images/products/vanity-mirror-pink.jpg",
+    "name": "Vanity Mirror with LED Lights - Pink",
+    "rating_stars": "4.5",
+    "rating_count": 130,
+    "price_cents": 2549,
+    "keywords": [
+      "bathroom",
+      "washroom",
+      "mirrors",
+      "home"
+    ],
+    "created_at": "2026-02-10T14:06:27.532Z",
+    "updated_at": "2026-02-10T14:06:27.532Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "a45cfa0a-66d6-4dc7-9475-e2b01595f7d7",
+  "fields": {
+    "image": "images/products/women-relaxed-lounge-pants-pink.jpg",
+    "name": "Women's Relaxed Lounge Pants - Pink",
+    "rating_stars": "4.5",
+    "rating_count": 248,
+    "price_cents": 3400,
+    "keywords": [
+      "pants",
+      "apparel",
+      "womens"
+    ],
+    "created_at": "2026-02-10T14:06:27.579Z",
+    "updated_at": "2026-02-10T14:06:27.579Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "a82c6bac-3067-4e68-a5ba-d827ac0be010",
+  "fields": {
+    "image": "images/products/straw-sunhat.jpg",
+    "name": "Straw Wide Brim Sun Hat",
+    "rating_stars": "4.0",
+    "rating_count": 215,
+    "price_cents": 2200,
+    "keywords": [
+      "hats",
+      "straw hats",
+      "summer",
+      "apparel"
+    ],
+    "created_at": "2026-02-10T14:06:26.939Z",
+    "updated_at": "2026-02-10T14:06:26.939Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "a93a101d-79ef-4cf3-a6cf-6dbe532a1b4a",
+  "fields": {
+    "image": "images/products/bathroom-mat.jpg",
+    "name": "Bathroom Bath Mat 16 x 32 Inch - Grey",
+    "rating_stars": "4.5",
+    "rating_count": 119,
+    "price_cents": 1850,
+    "keywords": [
+      "bathmat",
+      "bathroom",
+      "home"
+    ],
+    "created_at": "2026-02-10T14:06:27.038Z",
+    "updated_at": "2026-02-10T14:06:27.038Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "aa7fa4af-fefe-4c21-8421-ee0435ca597a",
+  "fields": {
+    "image": "images/products/men-cozy-fleece-hoodie-light-teal.jpg",
+    "name": "Men's Fleece Hoodie - Light Teal",
+    "rating_stars": "4.5",
+    "rating_count": 3157,
+    "price_cents": 3800,
+    "keywords": [
+      "sweaters",
+      "hoodies",
+      "apparel",
+      "mens"
+    ],
+    "created_at": "2026-01-30T11:10:52.352Z",
+    "updated_at": "2026-01-31T10:08:27.073Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "aaa65ef3-8d6f-4eb3-bc9b-a6ea49047d8f",
+  "fields": {
+    "image": "images/products/kitchen-paper-towels-8-pack.jpg",
+    "name": "2-Ply Kitchen Paper Towels - 8 Pack",
+    "rating_stars": "4.5",
+    "rating_count": 1045,
+    "price_cents": 1899,
+    "keywords": [
+      "kitchen",
+      "kitchen towels",
+      "tissues"
+    ],
+    "created_at": "2026-02-10T14:06:27.927Z",
+    "updated_at": "2026-02-10T14:06:27.927Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "aad29d11-ea98-41ee-9285-b916638cac4a",
+  "fields": {
+    "image": "images/products/round-sunglasses-gold.jpg",
+    "name": "Round Sunglasses",
+    "rating_stars": "4.5",
+    "rating_count": 30,
+    "price_cents": 3560,
+    "keywords": [
+      "accessories",
+      "shades"
+    ],
+    "created_at": "2026-02-10T14:06:26.725Z",
+    "updated_at": "2026-02-10T14:06:26.725Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "b0f17cc5-8b40-4ca5-9142-b61fe3d98c85",
+  "fields": {
+    "image": "images/products/men-stretch-wool-sweater-black.jpg",
+    "name": "Men's Wool Sweater - Black",
+    "rating_stars": "4.5",
+    "rating_count": 2465,
+    "price_cents": 3374,
+    "keywords": [
+      "sweaters",
+      "apparel"
+    ],
+    "created_at": "2026-02-10T14:06:27.008Z",
+    "updated_at": "2026-02-10T14:06:27.008Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "b1a2c3d4-0000-4ddd-9eee-123456789010",
+  "fields": {
+    "image": "images/products/desk-lamp-led.jpg",
+    "name": "LED Desk Lamp changed",
+    "rating_stars": "4.5",
+    "rating_count": 3157,
+    "price_cents": 2300,
+    "keywords": [
+      "home",
+      "lighting",
+      "electronics"
+    ],
+    "created_at": "2026-01-29T10:27:23.882Z",
+    "updated_at": "2026-01-31T10:08:27.091Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "b86ddc8b-3501-4b17-9889-a3bad6fb585f",
+  "fields": {
+    "image": "images/products/women-sandal-heels-white-pink.jpg",
+    "name": "Women's Sandal Heels - Pink",
+    "rating_stars": "4.5",
+    "rating_count": 2286,
+    "price_cents": 5300,
+    "keywords": [
+      "womens",
+      "shoes",
+      "heels",
+      "sandals"
+    ],
+    "created_at": "2026-02-10T14:06:26.668Z",
+    "updated_at": "2026-02-10T14:06:26.668Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "bc2847e9-5323-403f-b7cf-57fde044a955",
+  "fields": {
+    "image": "images/products/men-cozy-fleece-hoodie-light-teal.jpg",
+    "name": "Men's Fleece Hoodie - Light Teal",
+    "rating_stars": "4.5",
+    "rating_count": 3157,
+    "price_cents": 3800,
+    "keywords": [
+      "sweaters",
+      "hoodies",
+      "apparel",
+      "mens"
+    ],
+    "created_at": "2026-02-10T14:06:27.868Z",
+    "updated_at": "2026-02-10T14:06:27.868Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "c2a82c5e-aff4-435f-9975-517cfaba2ece",
+  "fields": {
+    "image": "images/products/electric-steel-hot-water-kettle-white.jpg",
+    "name": "Electric Hot Water Kettle - White",
+    "rating_stars": "5.0",
+    "rating_count": 846,
+    "price_cents": 5074,
+    "keywords": [
+      "water kettle",
+      "appliances",
+      "kitchen"
+    ],
+    "created_at": "2026-02-10T14:06:26.849Z",
+    "updated_at": "2026-02-10T14:06:26.849Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "d2785924-743d-49b3-8f03-ec258e640503",
+  "fields": {
+    "image": "images/products/women-knit-beanie-pom-pom-blue.jpg",
+    "name": "Women's Knit Winter Beanie - Blue",
+    "rating_stars": "5.0",
+    "rating_count": 83,
+    "price_cents": 1950,
+    "keywords": [
+      "hats",
+      "winter hats",
+      "beanies",
+      "apparel",
+      "womens"
+    ],
+    "created_at": "2026-02-10T14:06:27.365Z",
+    "updated_at": "2026-02-10T14:06:27.365Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "d2e3f4a5-b6c7-8d9e-0f1a-2b3c4d5e6f7a",
+  "fields": {
+    "image": "images/products/wireless-bluetooth-earbuds.jpg",
+    "name": "Wireless Bluetooth Earbuds",
+    "rating_stars": "4.7",
+    "rating_count": 203,
+    "price_cents": 5999,
+    "keywords": [
+      "electronics",
+      "audio",
+      "earbuds",
+      "wireless"
+    ],
+    "created_at": "2026-01-31T10:08:27.105Z",
+    "updated_at": "2026-01-31T10:08:27.105Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "d339adf3-e004-4c20-a120-40e8874c66cb",
+  "fields": {
+    "image": "images/products/crystal-zirconia-stud-earrings-pink.jpg",
+    "name": "Crystal Zirconia Stud Earrings - Pink",
+    "rating_stars": "4.5",
+    "rating_count": 117,
+    "price_cents": 3467,
+    "keywords": [
+      "accessories",
+      "womens"
+    ],
+    "created_at": "2026-02-10T14:06:27.627Z",
+    "updated_at": "2026-02-10T14:06:27.627Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "d37a651a-d501-483b-aae6-a9659b0757a0",
+  "fields": {
+    "image": "images/products/glass-screw-lid-food-containers.jpg",
+    "name": "Glass Screw Lid Containers - 3 Pieces",
+    "rating_stars": "4.0",
+    "rating_count": 126,
+    "price_cents": 2899,
+    "keywords": [
+      "food containers",
+      "kitchen"
+    ],
+    "created_at": "2026-02-10T14:06:27.657Z",
+    "updated_at": "2026-02-10T14:06:27.657Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "dd82ca78-a18b-4e2a-9250-31e67412f98d",
+  "fields": {
+    "image": "images/products/women-plain-cotton-oversized-sweater-gray.jpg",
+    "name": "Cotton Oversized Sweater - Gray",
+    "rating_stars": "4.5",
+    "rating_count": 317,
+    "price_cents": 2400,
+    "keywords": [
+      "sweaters",
+      "apparel"
+    ],
+    "created_at": "2026-02-10T14:06:26.534Z",
+    "updated_at": "2026-02-10T14:06:26.534Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+  "fields": {
+    "image": "images/products/athletic-cotton-socks-6-pairs.jpg",
+    "name": "Black and Gray Athletic Cotton Socks - 6 Pairs",
+    "rating_stars": "4.5",
+    "rating_count": 87,
+    "price_cents": 1090,
+    "keywords": [
+      "socks",
+      "sports",
+      "apparel"
+    ],
+    "created_at": "2026-02-10T14:06:26.273Z",
+    "updated_at": "2026-02-10T14:06:26.273Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "e4f64a65-1377-42bc-89a5-e572d19252e2",
+  "fields": {
+    "image": "images/products/sky-leaf-branch-earrings.jpg",
+    "name": "Sterling Silver Leaf Branch Earrings",
+    "rating_stars": "4.5",
+    "rating_count": 52,
+    "price_cents": 6799,
+    "keywords": [
+      "jewelry",
+      "accessories",
+      "womens"
+    ],
+    "created_at": "2026-02-10T14:06:27.195Z",
+    "updated_at": "2026-02-10T14:06:27.195Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": "ee1f7c56-f977-40a4-9642-12ba5072e2b0",
+  "fields": {
+    "image": "images/products/men-chino-pants-beige.jpg",
+    "name": "Men's Chino Pants - Beige",
+    "rating_stars": "4.5",
+    "rating_count": 9017,
+    "price_cents": 2290,
+    "keywords": [
+      "pants",
+      "apparel",
+      "mens"
+    ],
+    "created_at": "2026-02-10T14:06:27.412Z",
+    "updated_at": "2026-02-10T14:06:27.412Z"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "0048e449-d371-4422-a758-fecfcc854fe2",
+  "fields": {
+    "order": "80defb8b-5fff-4872-aebf-7537ba345994",
+    "product": "10ed8504-57db-433c-b0a3-fc71a35c88a1",
+    "quantity": 1,
+    "price_cents": 3390
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "080057c0-595c-4490-b905-a04eb6be2a2f",
+  "fields": {
+    "order": "e5726776-2882-455c-91dd-b2458ddd2650",
+    "product": "aaa65ef3-8d6f-4eb3-bc9b-a6ea49047d8f",
+    "quantity": 1,
+    "price_cents": 1899
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "0fba570a-9d55-4c49-942c-23b6bd89fe3c",
+  "fields": {
+    "order": "e5726776-2882-455c-91dd-b2458ddd2650",
+    "product": "36c64692-677f-4f58-b5ec-0dc2cf109e27",
+    "quantity": 1,
+    "price_cents": 3899
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "274da739-193d-44e6-9448-fe06319d140b",
+  "fields": {
+    "order": "e5726776-2882-455c-91dd-b2458ddd2650",
+    "product": "bc2847e9-5323-403f-b7cf-57fde044a955",
+    "quantity": 1,
+    "price_cents": 3800
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "4d7b265b-61e8-465e-8f56-deaf1d9e8f87",
+  "fields": {
+    "order": "f13bba04-614c-4fbb-9641-6df6770baa4a",
+    "product": "36c64692-677f-4f58-b5ec-0dc2cf109e27",
+    "quantity": 2,
+    "price_cents": 3899
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "4feea5f9-309e-4a63-af07-cb5c59ebd37c",
+  "fields": {
+    "order": "80defb8b-5fff-4872-aebf-7537ba345994",
+    "product": "8a53b080-6d40-4a65-ab26-b24ecf700bce",
+    "quantity": 1,
+    "price_cents": 2990
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "7c5e29af-d1c5-4848-bc37-f64e26482b24",
+  "fields": {
+    "order": "841f52ec-e616-4789-b0f9-ee793a47fa6f",
+    "product": "bc2847e9-5323-403f-b7cf-57fde044a955",
+    "quantity": 4,
+    "price_cents": 3800
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "7d8fc396-d22c-4cce-9bfe-dce3ca3445ef",
+  "fields": {
+    "order": "80defb8b-5fff-4872-aebf-7537ba345994",
+    "product": "bc2847e9-5323-403f-b7cf-57fde044a955",
+    "quantity": 1,
+    "price_cents": 3800
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "931f516a-0d05-4672-8e37-b0b1908cb69b",
+  "fields": {
+    "order": "80defb8b-5fff-4872-aebf-7537ba345994",
+    "product": "36c64692-677f-4f58-b5ec-0dc2cf109e27",
+    "quantity": 1,
+    "price_cents": 3899
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "9ab93de7-94fc-4e91-8b6e-0406ddc1f608",
+  "fields": {
+    "order": "80defb8b-5fff-4872-aebf-7537ba345994",
+    "product": "77a845b1-16ed-4eac-bdf9-5b591882113d",
+    "quantity": 1,
+    "price_cents": 10747
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "9f952ab4-6459-4f3f-a26c-7e17ede05896",
+  "fields": {
+    "order": "f13bba04-614c-4fbb-9641-6df6770baa4a",
+    "product": "bc2847e9-5323-403f-b7cf-57fde044a955",
+    "quantity": 1,
+    "price_cents": 3800
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "b374946f-927e-4bfd-b43d-168d33e78f16",
+  "fields": {
+    "order": "ce146bcd-0706-4902-8ee8-63ae844e02f5",
+    "product": "d37a651a-d501-483b-aae6-a9659b0757a0",
+    "quantity": 1,
+    "price_cents": 2899
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "d52fc6c9-0d76-485e-b9a3-5a558e3050c9",
+  "fields": {
+    "order": "f13bba04-614c-4fbb-9641-6df6770baa4a",
+    "product": "aaa65ef3-8d6f-4eb3-bc9b-a6ea49047d8f",
+    "quantity": 1,
+    "price_cents": 1899
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": "ea733fa1-65b8-4b9d-9bab-33da257e9939",
+  "fields": {
+    "order": "ce146bcd-0706-4902-8ee8-63ae844e02f5",
+    "product": "0d7f9afa-2efe-4fd9-b0fd-ba5663e0a524",
+    "quantity": 1,
+    "price_cents": 8250
+  }
+},
+{
+  "model": "delivery.deliveryoptions",
+  "pk": "210ec6fa-bfb4-4f52-8277-d6610d2f0577",
+  "fields": {
+    "name": "Standard Delivery",
+    "description": "Faster shipping (3-5 business days)",
+    "price_cents": 500,
+    "delivery_days": 5
+  }
+},
+{
+  "model": "delivery.deliveryoptions",
+  "pk": "4bfcf7a2-67c3-435e-b2b4-4880b1631771",
+  "fields": {
+    "name": "Fast Delivery",
+    "description": "Express shipping (1-2 business days)",
+    "price_cents": 700,
+    "delivery_days": 2
+  }
+},
+{
+  "model": "delivery.deliveryoptions",
+  "pk": "a598ad34-cb74-4b4a-ba59-3e4fa79f1f0f",
+  "fields": {
+    "name": "Basic Delivery",
+    "description": "Standard shipping (5-7 business days)",
+    "price_cents": 0,
+    "delivery_days": 7
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add product",
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "codename": "add_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change product",
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "codename": "change_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete product",
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "codename": "delete_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view product",
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "codename": "view_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add cart item",
+    "content_type": [
+      "cart",
+      "cartitem"
+    ],
+    "codename": "add_cartitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change cart item",
+    "content_type": [
+      "cart",
+      "cartitem"
+    ],
+    "codename": "change_cartitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete cart item",
+    "content_type": [
+      "cart",
+      "cartitem"
+    ],
+    "codename": "delete_cartitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view cart item",
+    "content_type": [
+      "cart",
+      "cartitem"
+    ],
+    "codename": "view_cartitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add order item",
+    "content_type": [
+      "orders",
+      "orderitem"
+    ],
+    "codename": "add_orderitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change order item",
+    "content_type": [
+      "orders",
+      "orderitem"
+    ],
+    "codename": "change_orderitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete order item",
+    "content_type": [
+      "orders",
+      "orderitem"
+    ],
+    "codename": "delete_orderitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view order item",
+    "content_type": [
+      "orders",
+      "orderitem"
+    ],
+    "codename": "view_orderitem"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add order",
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "codename": "add_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change order",
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "codename": "change_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete order",
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "codename": "delete_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view order",
+    "content_type": [
+      "orders",
+      "order"
+    ],
+    "codename": "view_order"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add delivery options",
+    "content_type": [
+      "delivery",
+      "deliveryoptions"
+    ],
+    "codename": "add_deliveryoptions"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change delivery options",
+    "content_type": [
+      "delivery",
+      "deliveryoptions"
+    ],
+    "codename": "change_deliveryoptions"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete delivery options",
+    "content_type": [
+      "delivery",
+      "deliveryoptions"
+    ],
+    "codename": "delete_deliveryoptions"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view delivery options",
+    "content_type": [
+      "delivery",
+      "deliveryoptions"
+    ],
+    "codename": "view_deliveryoptions"
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$IONOZlP17YWfKnCCeGd5R4$UdzwlnwYM8GowCYepO/nfffZknIHruAbWHbNUsA+6V0=",
+    "last_login": "2026-01-29T10:25:48.088Z",
+    "is_superuser": true,
+    "username": "dgsin",
+    "first_name": "",
+    "last_name": "",
+    "email": "divyanshusingh.techie@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-01-28T12:38:37.832Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$UV65k1UpLci1bMEgwqOJCa$5Lt+dVzd12IceTTnPKeySihkaFjDkS/18Sat3k3LeQ8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Divyanshu@11",
+    "first_name": "DIVYANSHU",
+    "last_name": "SINGH",
+    "email": "dgsingh1937@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-17T06:13:49.592Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": 48,
+  "fields": {
+    "user": null,
+    "product": "aaa65ef3-8d6f-4eb3-bc9b-a6ea49047d8f",
+    "quantity": 1,
+    "added_at": "2026-02-17T04:41:23.764Z",
+    "delivery_option": null
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "80defb8b-5fff-4872-aebf-7537ba345994",
+  "fields": {
+    "user": null,
+    "created_at": "2026-02-12T06:20:51.345Z",
+    "total_cost_cents": 24826,
+    "payment_status": "pending",
+    "payment_intent_id": null
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "841f52ec-e616-4789-b0f9-ee793a47fa6f",
+  "fields": {
+    "user": [
+      "Divyanshu@11"
+    ],
+    "created_at": "2026-02-25T16:16:47.905Z",
+    "total_cost_cents": 15200,
+    "payment_status": "paid",
+    "payment_intent_id": "pi_3T4kk6PrBUqw6sex1ZYDhSXy"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "ce146bcd-0706-4902-8ee8-63ae844e02f5",
+  "fields": {
+    "user": [
+      "Divyanshu@11"
+    ],
+    "created_at": "2026-02-27T09:05:46.443Z",
+    "total_cost_cents": 11149,
+    "payment_status": "paid",
+    "payment_intent_id": "pi_3T5MyWPrBUqw6sex1e0qslZj"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "e5726776-2882-455c-91dd-b2458ddd2650",
+  "fields": {
+    "user": null,
+    "created_at": "2026-02-12T15:10:50.410Z",
+    "total_cost_cents": 9598,
+    "payment_status": "pending",
+    "payment_intent_id": null
+  }
+},
+{
+  "model": "orders.order",
+  "pk": "f13bba04-614c-4fbb-9641-6df6770baa4a",
+  "fields": {
+    "user": [
+      "Divyanshu@11"
+    ],
+    "created_at": "2026-02-17T11:23:11.497Z",
+    "total_cost_cents": 13497,
+    "payment_status": "pending",
+    "payment_intent_id": null
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-01-31T09:46:59.250Z",
+    "user": [
+      "dgsin"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "2b02566e-cb4a-469c-bf93-d9cef4af7380",
+    "object_repr": "Athletic Skateboard Shoes - Gray",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2026-01-31T09:47:51.341Z",
+    "user": [
+      "dgsin"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "59f7608a-2d71-4805-973c-6d00ae25b742",
+    "object_repr": "Women's Straight Leg Jeans - Black",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+}
+]
