@@ -181,3 +181,27 @@ python manage.py loaddata datadump.json
 
 **COMMANDS RUN**:
 python manage.py shell
+
+
+---
+
+
+# Phase 3: Deploy Backend to Render
+
+## 3.1: Push Latest Code to GitHub
+**WHAT**: Pushing production-ready code to GitHub
+**WHY**: Render needs to pull our code from a Git repository
+
+**COMMANDS RUN**:
+git status
+git add .
+git commit -m "feat: prepare backend for production deployment"
+git push origin main
+
+**VERIFICATION**:
+✅ All files committed
+✅ Push successful
+✅ GitHub repo updated at: https://github.com/Divyanshu1105/ecommerce-platform
+
+---
+
