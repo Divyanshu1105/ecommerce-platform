@@ -222,7 +222,7 @@ Root Directory: ecommerce-backend
 
 This ensures Render runs commands from the backend folder instead of the repository root.
 
-⚠️ **WHAT COULD BREAK*
+⚠️ **WHAT COULD BREAK**
 
 - Selecting wrong repository
 - Forgetting to set Root Directory
