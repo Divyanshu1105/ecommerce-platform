@@ -3,12 +3,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router';
 import { AuthProvider } from './contexts/AuthContext';
-import axios from './api/axiosConfig.ts';
+// import axios from './api/axiosConfig.ts';
 import './index.css'
 import App from './App.tsx'
 
 // Set axios default base URL
-axios.defaults.baseURL = 'http://localhost:8000';
+// axios.defaults.baseURL = 'http://localhost:8000';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

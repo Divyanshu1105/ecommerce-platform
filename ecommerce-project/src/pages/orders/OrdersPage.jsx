@@ -13,7 +13,7 @@ export function OrdersPage({ cart, loadCart }) {
         const getOrdersData = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('/api/orders?expand=products');
+                const response = await axios.get('/orders?expand=products');
                 setOrders(response.data);
             } catch {
                 setOrders([]);

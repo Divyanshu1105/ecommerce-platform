@@ -30,7 +30,7 @@ function AppContent() {
     }
 
     try {
-      const response = await axios.get('/api/cart-items/?expand=product');
+      const response = await axios.get('/cart-items/?expand=product');
       setCart(response.data);
     } catch (error) {
       console.error('Error loading cart:', error);

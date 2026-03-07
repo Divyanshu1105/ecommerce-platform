@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const fetchUser = async () => {
         try {
-            const response = await axios.get('/api/auth/user/');
+            const response = await axios.get('/auth/user/');
             setUser(response.data);
         } catch (error) {
             console.error('Failed to fetch user:', error);
@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const login = async (username: string, password: string) => {
         try {
-            const response = await axios.post('/api/auth/login/', {
+            const response = await axios.post('/auth/login/', {
                 username,
                 password
             });
@@ -90,7 +90,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const register = async (userData: RegisterData) => {
         try {
-            await axios.post('/api/auth/register/', userData);
+            await axios.post('/auth/register/', userData);
             await login(userData.username, userData.password);
 
         } catch (error: unknown) {
@@ -113,7 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const refreshToken = localStorage.getItem('refresh_token');
 
             if (refreshToken) {
-                await axios.post('/api/auth/logout/', {
+                await axios.post('/auth/logout/', {
                     refresh_token: refreshToken
                 });
             }

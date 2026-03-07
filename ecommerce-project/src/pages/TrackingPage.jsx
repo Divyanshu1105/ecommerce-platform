@@ -16,7 +16,7 @@ export function TrackingPage({ cart }) {
         const fetchTrackingData = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`/api/orders/${orderId}?expand=products`);
+                const response = await axios.get(`/orders/${orderId}?expand=products`);
                 setOrder(response.data);
             } catch {
                 setError('Unable to load tracking information. Please try again.');
