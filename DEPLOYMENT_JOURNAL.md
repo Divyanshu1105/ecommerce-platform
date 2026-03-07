@@ -432,3 +432,36 @@ API is now accessible at:
 ```python
 https://ecommerce-backend-api-kur9.onrender.com
 ```
+---
+
+# Phase 4: Deploy Frontend to Vercel
+
+## 4.1: Prepare Frontend for Production
+**WHAT**: Ensuring frontend is production-ready
+**WHY**: Need to fix any hardcoded values and optimize build
+
+**FILES TO CHECK**:
+- ecommerce-project/.env (API URL should point to Render)
+- ecommerce-project/vite.config.ts (build settings)
+- ecommerce-project/src/services/api.ts (base URL configuration)
+
+---
+
+## 4.2: Test Production Build Locally
+**WHAT**: Testing production build locally before deployment
+**WHY**: Catch any build errors early
+
+**COMMAND RUN**:
+```python
+npm run build
+```
+
+**EXPECTED OUTPUT**:
+dist/ directory created with optimized files
+✓ Built in 5.32s
+
+⚠️**WHAT COULD BREAK**:
+- TypeScript errors
+- Missing dependencies
+- Environment variable issues
+- Large bundle size warnings

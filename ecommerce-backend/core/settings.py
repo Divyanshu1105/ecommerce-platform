@@ -35,18 +35,27 @@ if not SECRET_KEY:
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # IMPORTANT: Add your production domain here when deployed
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    "localhost,127.0.0.1,ecommerce-backend-api-kur9.onrender.com"
+).split(",")
 
 # CORS settings - will update after frontend deploys
 CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS", 
-    "http://localhost:5173,http://localhost:3000"
+    "http://localhost:5173," 
+    "http://localhost:3000",
+    "https://ecommerce-project-bwhsoip44-divyanshu1105s-projects.vercel.app"
 ).split(",")
 
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
     CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ALLOWED_ORIGINS = [
+        "https://ecommerce-project-bwhsoip44-divyanshu1105s-projects.vercel.app",
+        # Add any custom domains later
+    ]
 
 # Application definition
 
