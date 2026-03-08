@@ -17,12 +17,12 @@ export function CheckoutPage({ cart, loadCart }) {
 
     useEffect(() => {
         const fetchCheckoutData = async () => {
-            const deliveryResponse = await axios.get('/api/delivery-options/');
-            const paymentResponse = await axios.get('/api/cart-items/payment_summary/');
+            const deliveryResponse = await axios.get('/delivery-options/');
+            const paymentResponse = await axios.get('/cart-items/payment_summary/');
 
             // ADD: Fetch clientSecret
             try {
-                const intentResponse = await axios.post('/api/payment/create-payment-intent/', {}, {
+                const intentResponse = await axios.post('/payment/create-payment-intent/', {}, {
                     headers: { 'Content-Type': 'application/json' }
                 });
                 setClientSecret(intentResponse.data.clientSecret);

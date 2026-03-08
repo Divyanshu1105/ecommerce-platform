@@ -17,7 +17,7 @@ describe('HomePage component', () => {
         loadCart = vi.fn();
 
         axios.get.mockImplementation(async (urlPath) => {
-            if (urlPath === '/api/products') {
+            if (urlPath === '/products') {
                 return {
                     data: [{
                         id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -98,12 +98,12 @@ describe('HomePage component', () => {
             .getByTestId('add-to-cart-button');
         await user.click(addToCartButton2);
 
-        expect(axios.post).toHaveBeenNthCalledWith(1, '/api/cart-items', {
+        expect(axios.post).toHaveBeenNthCalledWith(1, '/cart-items', {
             productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
             quantity: 2
         });
 
-        expect(axios.post).toHaveBeenNthCalledWith(2, '/api/cart-items', {
+        expect(axios.post).toHaveBeenNthCalledWith(2, '/cart-items', {
             productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
             quantity: 3
         });

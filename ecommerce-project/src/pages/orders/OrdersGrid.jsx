@@ -9,7 +9,7 @@ export function OrdersGrid({ orders, loadCart }) {
     const [updatedQuantities, setUpdatedQuantities] = useState({});
 
     const addToCart = async (productId) => {
-        await axios.post('/api/cart-items/', {
+        await axios.post('/cart-items/', {
             product_id: productId,
             quantity: 1
         });

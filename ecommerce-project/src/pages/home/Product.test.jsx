@@ -64,7 +64,7 @@ describe('Product component', () => {
         await user.click(addToCartButton);
 
         expect(axios.post).toHaveBeenCalledWith(
-            '/api/cart-items',
+            '/cart-items',
             {
                 productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
                 quantity: 1
@@ -88,7 +88,7 @@ describe('Product component', () => {
         await user.click(addToCartButton);
 
         expect(axios.post).toHaveBeenCalledWith(
-            '/api/cart-items',
+            '/cart-items',
             {
                 productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
                 quantity: Number(quantitySelector.value),

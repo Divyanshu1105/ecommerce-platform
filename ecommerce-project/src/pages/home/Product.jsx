@@ -14,7 +14,7 @@ export function Product({ product, loadCart }) {
 
             // FIX 1: Add trailing slash
             // FIX 2: Use product_id (with underscore) not productId
-            await axios.post('/api/cart-items/', {
+            await axios.post('/cart-items/', {
                 product_id: product.id,  // Changed from productId to product_id
                 quantity: quantity
             });

@@ -18,7 +18,7 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
                 }
 
                 const updateDeliveryOption = async () => {
-                    await axios.put(`/api/cart-items/${cartItem.id}/`, {
+                    await axios.put(`/cart-items/${cartItem.id}/`, {
                         delivery_option_id: deliveryOption.id
                     });
                     await loadCart();
