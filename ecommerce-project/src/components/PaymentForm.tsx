@@ -46,7 +46,7 @@ export function PaymentForm({ amount, onSuccess }: PaymentFormProps) {
             }
 
             if (paymentIntent && paymentIntent.status === 'succeeded') {
-                await axios.post('/api/payment/confirm-order/', {
+                await axios.post('/payment/confirm-order/', {
                     payment_intent_id: paymentIntent.id
                 });
 

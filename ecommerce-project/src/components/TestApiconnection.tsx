@@ -1,4 +1,3 @@
-// ecommerce-project/src/components/TestApiConnection.tsx
 import React, { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
 import type { Product } from '../types/product.types';

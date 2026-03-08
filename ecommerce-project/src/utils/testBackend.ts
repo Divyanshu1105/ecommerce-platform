@@ -38,7 +38,7 @@ export const testBackendConnection = async (): Promise<BackendTestResult> => {
 
         // Test 2: Through proxy
         try {
-            const response2 = await fetch('/api/products/');
+            const response2 = await fetch('/products/');
             console.log(`Test 2 - Through proxy: ${response2.status} ${response2.statusText}`);
             result.proxyFetch = response2.ok;
         } catch (error) {
@@ -48,7 +48,7 @@ export const testBackendConnection = async (): Promise<BackendTestResult> => {
         // Test 3: Using axios directly
         try {
             axios.defaults.baseURL = 'http://localhost:8000';
-            const response3 = await axios.get('/api/products/');
+            const response3 = await axios.get('/products/');
             console.log(`Test 3 - Using axios: ${response3.status} ${response3.statusText}`);
             result.axios = response3.status === 200;
         } catch (error) {
