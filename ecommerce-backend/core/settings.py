@@ -43,7 +43,7 @@ ALLOWED_HOSTS = os.environ.get(
 # CORS settings - will update after frontend deploys
 CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS",
-    "http://localhost:5173,http://localhost:3000,https://ecommerce-project-bwhsoip44-divyanshu1105s-projects.vercel.app"
+    "http://localhost:5173,http://localhost:3000,https://ecommerce-project-virid-beta.vercel.app"
 ).split(",")
 
 if DEBUG:

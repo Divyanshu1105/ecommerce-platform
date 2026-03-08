@@ -1,21 +1,12 @@
 import { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import axios from '../api/axiosConfig';
 
-// Use environment variable with fallback
-const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
 
 class ApiService {
     private axiosInstance: AxiosInstance;
 
     constructor() {
-        this.axiosInstance = axios.create({
-            baseURL: API_BASE_URL,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            timeout: 10000,
-        });
+        this.axiosInstance = axios;
         this.setupInterceptors();
     }
 
