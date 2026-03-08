@@ -465,3 +465,391 @@ dist/ directory created with optimized files
 - Missing dependencies
 - Environment variable issues
 - Large bundle size warnings
+
+
+---
+
+## Table of Contents
+
+- [Project Structure](#project-structure)
+- [Issue 1 — Products Not Loading (API Timeout)](#issue-1--products-not-loading-api-timeout)
+- [Issue 2 — CORS Policy Blocking Requests](#issue-2--cors-policy-blocking-requests)
+- [Issue 3 — Empty Database on Render](#issue-3--empty-database-on-render)
+- [Issue 4 — Duplicate /api/api/ in Cart URLs](#issue-4--duplicate-apiapi-in-cart-urls)
+- [Issue 5 — Vercel Build Failing (vite not found)](#issue-5--vercel-build-failing-vite-not-found)
+- [Issue 6 — Local Server HTTPS Error](#issue-6--local-server-https-error)
+- [Final Configuration Reference](#final-configuration-reference)
+- [Key Lessons Learned](#key-lessons-learned)
+
+---
+
+## Project Structure
+
+```
+ecommerce-platform/
+├── ecommerce-backend/       ← Django REST API (Render)
+│   ├── manage.py
+│   ├── core/settings.py
+│   ├── datadump.json
+│   └── requirements.txt
+└── ecommerce-project/       ← React Frontend (Vercel)
+    ├── src/
+    │   ├── api/axiosConfig.ts
+    │   ├── services/
+    │   └── pages/
+    ├── .env.development
+    ├── .env.production
+    └── package.json
+```
+
+---
+
+## Issue 1 — Products Not Loading (API Timeout)
+
+### What Happened
+
+After deploying both ends, products were not loading on the live site. The browser console showed:
+
+```
+[API Response Error]
+Object { status: undefined, statusText: undefined, data: undefined,
+url: '/products/', baseURL: 'https://ecommerce-backend-api-kur9.onrender.com/api' }
+
+Error fetching products:
+AxiosError { message: 'Network error', code: 'ECONNABORTED' }
+```
+
+### Root Cause
+
+Render's **free tier spins down inactive services after 15 minutes**. The first request after a cold start takes 30–60 seconds to wake up. Axios was timing out before the server finished waking, producing `ECONNABORTED` with `status: undefined`.
+
+### Fix Applied
+
+**1. Increased Axios timeout** in `src/api/axiosConfig.ts`:
+
+```typescript
+const api = axios.create({
+    baseURL: API_BASE_URL,
+    timeout: 60000, // 60 seconds to survive Render cold start
+});
+```
+
+**2. Set up UptimeRobot** to ping the backend every 5 minutes, preventing spin-down:
+
+- Service: [uptimerobot.com](https://uptimerobot.com) (free)
+- Monitor Type: HTTP(s)
+- URL: `https://ecommerce-backend-api-kur9.onrender.com/api/products/`
+- Interval: Every 5 minutes
+
+**3. Added user-friendly error handling** for cold start timeouts:
+
+```typescript
+catch (error) {
+    if (error.code === 'ECONNABORTED') {
+        setError('Server is waking up, please wait 30 seconds and refresh...');
+    }
+}
+```
+
+---
+
+## Issue 2 — CORS Policy Blocking Requests
+
+### What Happened
+
+After fixing the timeout, a new error appeared:
+
+```
+Access to XMLHttpRequest at 'https://ecommerce-backend-api-kur9.onrender.com/api/products/'
+from origin 'https://ecommerce-project-virid-beta.vercel.app'
+has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present.
+```
+
+### Root Cause
+
+Three sub-problems caused this:
+
+1. `core/settings.py` had an **old Vercel preview URL** hardcoded in `CORS_ALLOWED_ORIGINS`. Preview URLs change with every deployment.
+2. The **production domain** (`ecommerce-project-virid-beta.vercel.app`) was never added to CORS allowed origins on Render.
+3. Vercel generates two types of URLs — **deployment URLs** (temporary, change every deploy) and **production domain** (stable, always the same). Only the production domain should be used in CORS config.
+
+### Vercel URL Types Explained
+
+| Type | Example | Use in CORS? |
+|------|---------|--------------|
+| Deployment URL | `ecommerce-project-bwhsoip44-xxx.vercel.app` | ❌ Changes every deploy |
+| Production Domain | `ecommerce-project-virid-beta.vercel.app` | ✅ Always stable |
+
+### Fix Applied
+
+**Updated `CORS_ALLOWED_ORIGINS` in `core/settings.py`:**
+
+```python
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost:5173,http://localhost:3000,https://ecommerce-project-virid-beta.vercel.app"
+).split(",")
+```
+
+**Updated Render environment variable:**
+
+| Key | Value |
+|-----|-------|
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:5173,http://localhost:3000,https://ecommerce-project-virid-beta.vercel.app` |
+| `ALLOWED_HOSTS` | `.onrender.com,localhost` |
+| `DEBUG` | `False` |
+
+> ⚠️ **Important:** Always use the production domain in CORS config, never deployment preview URLs.
+
+---
+
+## Issue 3 — Empty Database on Render
+
+### What Happened
+
+After fixing CORS, the API was reachable but returning an empty array:
+
+```
+GET https://ecommerce-backend-api-kur9.onrender.com/api/products/
+Response: []
+```
+
+### Root Cause
+
+Render's PostgreSQL was a **fresh empty database**. Django migrations had created the tables but no data had been loaded into them. The `datadump.json` fixture file existed locally but had never been pushed to the remote database.
+
+### Fix Applied
+
+Connected local Django directly to Render's PostgreSQL using the **External Database URL** from Render's Connect tab, and ran commands locally:
+
+**Step 1 — Run migrations:**
+```bash
+DATABASE_URL=postgresql://user:pass@dpg-xxx.render.com/dbname python manage.py migrate
+```
+
+**Output:**
+```
+Operations to perform:
+  Apply all migrations: admin, auth, cart, contenttypes, delivery, orders, products, sessions
+Running migrations:
+  No migrations to apply.
+```
+
+**Step 2 — Load fixture data:**
+```bash
+DATABASE_URL=postgresql://user:pass@dpg-xxx.render.com/dbname python manage.py loaddata datadump.json
+```
+
+**Output:**
+```
+Installed 131 object(s) from 1 fixture(s)
+```
+
+**Step 3 — Verify data loaded:**
+```bash
+DATABASE_URL=postgresql://user:pass@dpg-xxx.render.com/dbname python manage.py shell -c \
+"from products.models import Product; print('Products:', Product.objects.count())"
+```
+
+**Output:**
+```
+Products: 48
+```
+
+> 💡 **Note:** This method works without Render Shell access (which is not available on the free tier). By passing `DATABASE_URL` as a prefix to any Django management command, you can point your local Django instance directly at the remote database.
+
+---
+
+## Issue 4 — Duplicate /api/api/ in Cart URLs
+
+### What Happened
+
+After products loaded successfully, adding items to cart failed:
+
+```
+POST https://ecommerce-backend-api-kur9.onrender.com/api/api/cart-items/ 404 (Not Found)
+
+Failed to add to cart:
+AxiosError { message: 'Request failed with status code 404', code: 'ERR_BAD_REQUEST' }
+```
+
+### Root Cause
+
+The `VITE_API_BASE_URL` environment variable was **not set on Vercel**. Since Vercel never reads local `.env` files during build, the variable was `undefined` in production, causing the axios instance to fall back to `http://localhost:8000/api`.
+
+The Vite dev server has a **proxy configuration** in `vite.config.ts` that forwards `/api/*` requests to Django locally:
+
+```typescript
+server: {
+    proxy: {
+        '/api': {
+            target: 'http://localhost:8000',
+            changeOrigin: true,
+            secure: false,
+        },
+    }
+}
+```
+
+This proxy **only works locally** — it doesn't exist on Vercel. Without the correct `VITE_API_BASE_URL`, requests in production were constructing wrong URLs.
+
+### Fix Applied
+
+Added `VITE_API_BASE_URL` to **Vercel environment variables**:
+
+| Key | Value | Environment |
+|-----|-------|-------------|
+| `VITE_API_BASE_URL` | `https://ecommerce-backend-api-kur9.onrender.com/api` | Production |
+
+> ⚠️ **Important:** Vite environment variables (`VITE_*`) must be explicitly added to Vercel's dashboard. Local `.env.production` files are **not read** by Vercel during build.
+
+---
+
+## Issue 5 — Vercel Build Failing (vite not found)
+
+### What Happened
+
+After adding the environment variable, Vercel builds kept failing:
+
+```
+sh: line 1: vite: command not found
+Error: Command "vite build" exited with 127
+```
+
+### Root Cause
+
+Two problems combined:
+
+1. `vite`, `typescript`, and `@vitejs/plugin-react` were all in `devDependencies` in `package.json`. Vercel skips installing `devDependencies` in production builds, so the build tools were unavailable.
+
+2. Vercel's **Root Directory** was set to `./` (repo root) instead of `ecommerce-project/` (where `package.json` actually lives), causing `npm error: Could not read package.json`.
+
+### Fix 1 — Moved build tools to `dependencies` in `package.json`
+
+```json
+"dependencies": {
+    "@vitejs/plugin-react": "^4.4.1",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    ...
+}
+```
+
+### Fix 2 — Set Root Directory on Vercel
+
+**Vercel Dashboard → Project → Settings → Build and Deployment → Root Directory:**
+
+```
+ecommerce-project
+```
+
+### Fix 3 — Set Install Command on Vercel
+
+**Vercel Dashboard → Project → Settings → Build and Deployment → Install Command:**
+
+```
+npm install
+```
+
+### Fix 4 — Cleared Vercel Build Cache
+
+**Vercel Dashboard → Deployments → latest → `...` → Redeploy → uncheck "Use existing build cache" → Redeploy**
+
+> 💡 **Why moving to `dependencies` is safe:** Locally, `npm install` always installs both `dependencies` and `devDependencies`, so nothing changes locally. The only difference is that Vercel's production build can now find these tools.
+
+---
+
+## Issue 6 — Local Server HTTPS Error
+
+### What Happened
+
+While testing locally, the terminal and console showed:
+
+```
+You're accessing the development server over HTTPS, but it only supports HTTP.
+
+GET https://localhost:8000/api/products/ net::ERR_SSL_PROTOCOL_ERROR
+```
+
+### Root Cause
+
+The browser had cached an **HSTS (HTTP Strict Transport Security)** rule for localhost, forcing all requests to HTTPS even though Django dev server only supports HTTP.
+
+### Fix Applied
+
+**Cleared HSTS cache in Chrome:**
+
+1. Go to `chrome://net-internals/#hsts`
+2. Under "Delete domain security policies" → type `localhost` → click **Delete**
+3. Go to `chrome://net-internals/#sockets` → click **Flush socket pools**
+4. Restart Chrome
+
+---
+
+## Final Configuration Reference
+
+### Render Environment Variables
+
+| Key | Value |
+|-----|-------|
+| `DATABASE_URL` | PostgreSQL External Database URL from Render |
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:5173,http://localhost:3000,https://ecommerce-project-virid-beta.vercel.app` |
+| `ALLOWED_HOSTS` | `.onrender.com,localhost` |
+| `DEBUG` | `False` |
+| `SECRET_KEY` | Your Django secret key |
+
+### Vercel Environment Variables
+
+| Key | Value | Environment |
+|-----|-------|-------------|
+| `VITE_API_BASE_URL` | `https://ecommerce-backend-api-kur9.onrender.com/api` | Production |
+| `VITE_STRIPE_PUBLISHABLE_KEY` | Your Stripe publishable key | Production |
+| `NPM_CONFIG_PRODUCTION` | `false` | Production |
+
+### Vercel Build Settings
+
+| Setting | Value |
+|---------|-------|
+| Root Directory | `ecommerce-project` |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+| Install Command | `npm install` |
+
+### Frontend Environment Files
+
+**`.env.development`:**
+```
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
+**`.env.production`:**
+```
+VITE_API_BASE_URL=https://ecommerce-backend-api-kur9.onrender.com/api
+```
+
+---
+
+## Key Lessons Learned
+
+### 1. Render Free Tier Spins Down
+Render free tier services sleep after 15 minutes of inactivity. Always use UptimeRobot or a similar service to keep the backend alive, and set Axios timeout to at least 60 seconds.
+
+### 2. Always Use Production Domain in CORS
+Vercel deployment URLs change with every deploy. Always use the stable **production domain** in `CORS_ALLOWED_ORIGINS`, never the preview/deployment URL.
+
+### 3. Vite Proxy Only Works Locally
+`vite.config.ts` proxy settings forward requests locally but **do not exist on Vercel**. All API calls must use the configured Axios instance with `VITE_API_BASE_URL`, never raw relative paths.
+
+### 4. Vercel Never Reads Local `.env` Files
+Always add `VITE_*` environment variables explicitly in the **Vercel Dashboard**. Local `.env.production` files are not read during Vercel's build process.
+
+### 5. Load Data Remotely Without Shell Access
+On Render free tier (no shell access), you can load data into the remote PostgreSQL database by prefixing Django management commands with `DATABASE_URL=<external_url>` from your local machine.
+
+### 6. Build Tools Must Be in `dependencies` for Vercel
+`vite`, `typescript`, and framework plugins must be in `dependencies` (not `devDependencies`) for Vercel to install them during production builds.
+
+### 7. Set Root Directory for Monorepos on Vercel
+In a monorepo, always set the **Root Directory** in Vercel's build settings to point to the frontend subfolder where `package.json` lives.
+
+---
