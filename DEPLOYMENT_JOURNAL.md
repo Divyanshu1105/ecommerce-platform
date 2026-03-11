@@ -937,14 +937,16 @@ Stripe Test Card: 4242 4242 4242 4242**
 ---
 
 ## 5.2: Add Error Monitoring (Sentry)
-<div align="center"> <img src="https://sentry.io/favicon.ico" width="48" alt="Sentry"> <p><i>Global error tracking - Production insights - Faster debugging</i></p> </div>
+<div align="center"><p><i>Global error tracking - Production insights - Faster debugging</i></p> </div>
 
 🎯 **Overview**
+<br>
 **WHAT**: Integrated Sentry.io for real-time error monitoring and performance tracking
 **WHY**: 98% error visibility, 3x faster debugging, no more "works on my machine" issues
 
 
 🚀 **Implementation Steps**
+<br>
 **Step 1**: Install Dependencies
 ```
 npm install @sentry/react @sentry/vite-plugin-sentry
