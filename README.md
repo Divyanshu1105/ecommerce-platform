@@ -6,7 +6,6 @@ A production-ready full-stack e-commerce platform built with Django REST Framewo
 ## 📋 Table of Contents
 - [✨ Features](#-features)
 - [📊 Project Status](#-project-status)
-- [🏗️ Architecture](#️-architecture)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [🚀 Quick Start](#-quick-start)
 - [🔄 CI/CD Pipeline](#-cicd-pipeline)
@@ -54,39 +53,6 @@ A production-ready full-stack e-commerce platform built with Django REST Framewo
 | Performance Optimization | ✅ Optimized | March 2026 |
 | Custom Domain | ⏳ Optional | Future |
 | Analytics | ⏸️ Backlog | Future |
-
----
-
-## 🏗️ Architecture
-┌─────────────────────────────────────┐
-│ Client (Browser) │
-│ Desktop • Mobile • Tablet │
-└───────────────┬─────────────────────┘
-│ HTTPS
-▼
-┌─────────────────────────────────────┐
-│ Frontend - React + TypeScript │
-│ (Hosted on Vercel) │
-│ ┌──────┐ ┌──────┐ ┌──────┐ ┌────┐ │
-│ │ Auth │ │Products││ Cart ││Orders││
-│ └──────┘ └──────┘ └──────┘ └────┘ │
-└───────────────┬─────────────────────┘
-│ REST API + JWT
-▼
-┌─────────────────────────────────────┐
-│ Backend - Django REST Framework │
-│ (Hosted on Render) │
-│ ┌──────┐ ┌──────┐ ┌──────┐ ┌────┐ │
-│ │ Users│ │Products││ Cart ││Orders││
-│ └──────┘ └──────┘ └──────┘ └────┘ │
-└───────────────┬─────────────────────┘
-│
-┌───────┴───────────┐
-▼ ▼
-┌───────────────┐ ┌───────────────┐
-│ PostgreSQL │ │ Stripe │
-│ (Render DB) │ │ Payments │
-└───────────────┘ └───────────────┘
 
 ---
 
