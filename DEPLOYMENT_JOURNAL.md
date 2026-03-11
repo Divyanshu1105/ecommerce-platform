@@ -853,3 +853,84 @@ On Render free tier (no shell access), you can load data into the remote Postgre
 In a monorepo, always set the **Root Directory** in Vercel's build settings to point to the frontend subfolder where `package.json` lives.
 
 ---
+
+# Phase 5: Connect, Test & Optimize Live Application
+| **What**                     | **Why It's Critical**                                                                 |
+|--------------------------|-----------------------------------------------------------------------------------|
+| End-to-End Testing       | Walk through the full user journey and catch real bugs                            |
+| Performance Optimization | Improve load times, Core Web Vitals, Google ranking                               |
+| Error Monitoring         | Set up alerting so you know when things break in production                       |
+| Analytics                | Understand how users interact with the site                                       |
+| Resume Integration       | Document and present the project effectively                                      |
+|--------------------------|-----------------------------|
+
+## 5.1: Complete End-to-End Testing
+**WHAT**: Testing entire user journey on live site
+**WHY**: Ensure real users have smooth experience
+
+**TEST URL**: https://ecommerce-project-virid-beta.vercel.app
+**BACKEND**: https://ecommerce-backend-api-kur9.onrender.com
+**TEST CREDENTIALS**:
+Test User: (create fresh account)
+Stripe Test Card: 4242 4242 4242 4242**
+
+## Test Checklist
+**Run through EVERY feature and check** ✅:
+```
+🔐 AUTHENTICATION FLOW
+✅ Can register new account
+✅ Can login with credentials
+✅ JWT persists after page refresh
+✅ Logout works correctly
+✅ Protected routes redirect to login
+
+🏠 HOME PAGE
+✅ Products load from API
+✅ Search functionality works
+✅ Product images display
+✅ Loading states show properly
+✅ Error states handled gracefully
+
+🛒 CART FUNCTIONALITY
+✅ Add product to cart
+✅ Update quantity
+✅ Remove item from cart
+✅ Cart total updates correctly
+✅ Delivery options affect total
+✅ Cart persists after login
+
+💳 CHECKOUT & PAYMENT
+✅ Payment summary calculates correctly
+✅ Stripe Elements loads
+✅ Test payment succeeds (4242)
+✅ Order created after payment
+✅ Cart clears after order
+✅ Redirect to orders page
+
+📦 ORDERS PAGE
+✅ Orders list displays
+✅ Order details correct
+✅ Empty state shows properly
+✅ Track order link works
+
+📍 TRACKING PAGE
+✅ Order tracking loads
+✅ Progress bar updates
+✅ Estimated delivery shows
+✅ Back to orders link works
+
+👤 PROFILE PAGE
+✅ User info displays
+✅ Tabs navigate correctly
+✅ Logout from profile works
+
+📱 RESPONSIVE DESIGN
+✅ Mobile view (375px) - all features accessible
+✅ Tablet view (768px) - layout adjusts
+✅ Desktop view (1440px) - optimal spacing
+
+🌐 CROSS-BROWSER
+✅ Chrome works
+🔄 Firefox works
+🔄 Edge works
+```

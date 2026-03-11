@@ -1,14 +1,19 @@
-// ecommerce-project/src/main.tsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router';
 import { AuthProvider } from './contexts/AuthContext';
-// import axios from './api/axiosConfig.ts';
+import * as Sentry from "@sentry/react";
 import './index.css'
 import App from './App.tsx'
 
-// Set axios default base URL
-// axios.defaults.baseURL = 'http://localhost:8000';
+Sentry.init({
+  dsn: import.meta.env.VITE_SENTRY_DSN,
+  integrations: [
+    Sentry.browserTracingIntegration(),
+  ],
+  tracesSampleRate: 1.0,
+  environment: import.meta.env.MODE, // logs 'development' or 'production'
+});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
