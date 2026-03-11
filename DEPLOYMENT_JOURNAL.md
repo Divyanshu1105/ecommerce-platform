@@ -975,7 +975,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 );
 ```
 
-**Step 3****: Test Sentry
+**Step 3**: Test Sentry
 ```
 <button onClick={() => { throw new Error("Test Sentry Error"); }}>
   Test Error Tracking
